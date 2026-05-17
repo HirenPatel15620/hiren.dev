@@ -49,7 +49,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
                 border: '1px solid rgba(255, 255, 255, 0.05)',
                 background: 'rgba(26, 26, 46, 0.6)', // Standard card bg
                 transition: '0.3s ease',
-                ...sx
+                ...sx,
             }}
             {...props}
         >

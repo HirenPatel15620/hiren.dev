@@ -104,7 +104,7 @@ export default function Navigation() {
                 <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
                     <Box className="nav-brand">
                         <Typography variant="h2" sx={{ fontSize: '1.8rem', fontWeight: 800 }}>
-                            Hiren<span className="text-gradient">Patel</span>
+                            Hiren<span className="text-gradient"> Patel</span>
                         </Typography>
                     </Box>
 
