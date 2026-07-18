@@ -1,6 +1,7 @@
 
 import { Box, Container, Typography } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import { getExperienceYears } from '../utils/experience';
 
 export default function Experience() {
     return (
@@ -70,7 +71,7 @@ export default function Experience() {
                             }}
                         >
                             <Typography sx={{ color: '#06b6d4', fontWeight: 600, fontSize: '0.9rem', marginBottom: '1rem', textTransform: 'uppercase' }}>
-                                1st Jul 2023 – PRESENT (2+ YEARS)
+                                1st Jul 2023 – PRESENT ({getExperienceYears('2023-07-01')}+ YEARS)
                             </Typography>
                             <Typography variant="h3" sx={{ color: '#ffffff', fontSize: '1.8rem', marginBottom: '1rem' }}>
                                 Software Engineer

@@ -1,6 +1,7 @@
 
 import { Box, Container, Typography, Grid, Link } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import { getExperienceYears } from '../utils/experience';
 
 export default function About() {
     return (
@@ -46,7 +47,7 @@ export default function About() {
                                 Professional Background
                             </Typography>
                             <Typography sx={{ color: '#b4b4c5', marginBottom: '1.5rem', lineHeight: 1.8 }}>
-                                I am a dedicated Software Engineer with over 2.5 years of experience in developing robust and scalable
+                                I am a dedicated Software Engineer with over {getExperienceYears('2023-01-25')} years of experience in developing robust and scalable
                                 web applications. My expertise lies in .NET Core, Entity Framework, React with TypeScript, and modern
                                 web technologies.
                             </Typography>
