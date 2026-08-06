@@ -1,0 +1,231 @@
+.preloader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #080808;
+  color: #ffffff;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem 3rem;
+  box-sizing: border-box;
+  font-family: 'Consolas', 'Courier New', Courier, monospace, sans-serif;
+  user-select: none;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preloader-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+/* Top Header Bar */
+.preloader-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  z-index: 2;
+}
+
+.preloader-name {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+}
+
+.preloader-role {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  text-align: right;
+  max-width: 250px;
+  line-height: 1.4;
+}
+
+/* Center Animated Monogram */
+.preloader-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.monogram-svg {
+  width: 220px;
+  height: 140px;
+  overflow: visible;
+}
+
+.monogram-bg-path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.monogram-draw-path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: drawMonogram 3s ease-in-out infinite alternate;
+}
+
+@keyframes drawMonogram {
+  0% {
+    stroke-dashoffset: 600;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Glowing dot traveling along path */
+.glowing-dot {
+  fill: #fbbf24;
+  filter: drop-shadow(0 0 6px #fbbf24) drop-shadow(0 0 10px #f59e0b);
+}
+
+/* Bottom Bar */
+.preloader-footer {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.preloader-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 0.8rem;
+  width: 100%;
+}
+
+.preloader-copyright {
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.preloader-status {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  animation: pulseStatus 1.5s ease-in-out infinite;
+  transform: translateX(-50%);
+  position: absolute;
+  left: 50%;
+  bottom: 0.8rem;
+}
+
+@keyframes pulseStatus {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.preloader-percentage {
+  font-size: 2.2rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  line-height: 1;
+  font-family: 'Consolas', 'Courier New', Courier, monospace;
+}
+
+/* Dotted horizontal baseline */
+.preloader-baseline {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  border-bottom: 1.5px dotted rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.baseline-progress-line {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.95) 75%, #fbbf24 100%);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.8);
+  transition: width 0.15s linear;
+  border-radius: 1px;
+  z-index: 1;
+}
+
+.baseline-dot {
+  width: 5px;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  position: absolute;
+  top: -2px;
+  z-index: 2;
+}
+
+.baseline-dot.left {
+  left: 0;
+}
+
+.baseline-dot.right {
+  right: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .preloader-overlay {
+    padding: 1.5rem 1.5rem 2rem 1.5rem;
+  }
+
+  .monogram-svg {
+    width: 160px;
+    height: 100px;
+  }
+
+  .preloader-percentage {
+    font-size: 1.75rem;
+  }
+
+  .preloader-role {
+    font-size: 0.65rem;
+    max-width: 140px;
+  }
+
+  .preloader-name {
+    font-size: 0.65rem;
+  }
+
+  .preloader-status {
+    font-size: 0.65rem;
+  }
+}
