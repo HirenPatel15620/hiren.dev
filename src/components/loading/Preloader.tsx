@@ -149,11 +149,11 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
             className="monogram-draw-path"
             d={monogramPath}
           />
-          {/* Glowing yellow particle moving continuously along path */}
+          {/* Glowing yellow particle looping continuously along path */}
           <circle className="glowing-dot" r="3.5">
             <animateMotion
               path={monogramPath}
-              dur="4s"
+              dur="1s"
               repeatCount="indefinite"
               rotate="auto"
             />
