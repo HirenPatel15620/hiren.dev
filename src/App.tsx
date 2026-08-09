@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { theme } from './theme/theme';
 import { GlobalStyles } from './theme/globalStyles';
@@ -12,16 +12,15 @@ import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import TargetCursor from './components/TargetCursor';
+import Preloader from './components/loading/Preloader';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [showPreloader, setShowPreloader] = useState(true);
 
-  useEffect(() => {
-    // Simulate initial loading
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 100);
-    return () => clearTimeout(timer);
+  const handlePreloaderComplete = useCallback(() => {
+    setLoading(false);
+    setShowPreloader(false);
   }, []);
 
   useEffect(() => {
@@ -44,12 +43,15 @@ function App() {
     return () => observer.disconnect();
   }, [loading]);
 
-  if (loading) return null;
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles />
+      
+      {showPreloader && (
+        <Preloader onComplete={handlePreloaderComplete} />
+      )}
+
       <TargetCursor
         spinDuration={2}
         hideDefaultCursor={true}
@@ -58,7 +60,7 @@ function App() {
 
       <Navigation />
 
-      <main>
+      <main style={{ visibility: loading ? 'hidden' : 'visible' }}>
         <Hero />
         <About />
         <Skills />
@@ -74,3 +76,4 @@ function App() {
 }
 
 export default App;
+
