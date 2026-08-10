@@ -101,16 +101,22 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     };
   }, []);
 
-  // Trigger completion when displayProgress reaches 100%
+  const startTimeRef = useRef<number>(Date.now());
+
+  // Trigger completion when displayProgress reaches 100% & monogram has had time to complete drawing
   useEffect(() => {
     if (displayProgress >= 100) {
+      const MIN_MONOGRAM_DURATION = 2400; // Minimum ms to wait for monogram draw animation
+      const elapsed = Date.now() - startTimeRef.current;
+      const waitTime = Math.max(0, MIN_MONOGRAM_DURATION - elapsed);
+
       const fadeTimer = setTimeout(() => {
         setIsFadingOut(true);
-      }, 300);
+      }, waitTime);
 
       const doneTimer = setTimeout(() => {
         onComplete();
-      }, 1100);
+      }, waitTime + 800);
 
       return () => {
         clearTimeout(fadeTimer);
@@ -120,7 +126,21 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   }, [displayProgress, onComplete]);
 
   // Monogram SVG path string for background & glowing dot path
-  const monogramPath = "M 30,70 C 15,30 50,20 65,45 C 80,70 45,95 30,70 C 15,45 65,15 105,45 C 135,67.5 110,135 110,60 C 110,10 160,20 145,65 C 135,95 105,75 145,45";
+  const monogramPath =
+    "M 20,78 " +
+    "C 35,80 48,78 60,74 " +
+    "C 70,68 80,40 86,16 " +
+    "C 89,8 79,9 74,22 " +
+    "C 70,35 67,58 66,80 " +
+    "C 69,66 75,54 84,54 " +
+    "C 91,54 94,68 95,78 " +
+    "C 97,84 106,70 115,55 " +
+    "C 120,44 128,45 124,57 " +
+    "C 118,70 108,100 98,126 " +
+    "C 97,126 102,106 108,86 " +
+    "C 113,72 122,58 134,60 " +
+    "C 146,62 144,80 131,81 " +
+    "C 142,81 162,77 185,76";
 
   return (
     <div className={`preloader-overlay ${isFadingOut ? 'fade-out' : ''}`}>
@@ -136,7 +156,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       <div className="preloader-center">
         <svg
           className="monogram-svg"
-          viewBox="0 0 180 140"
+          viewBox="0 0 210 140"
           xmlns="http://www.w3.org/2000/svg"
         >
           {/* Static background outline */}
@@ -148,6 +168,13 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           <path
             className="monogram-draw-path"
             d={monogramPath}
+          />
+          {/* Signature Dot at the end */}
+          <circle
+            cx="190"
+            cy="75.5"
+            r="1.8"
+            className="monogram-dot-static"
           />
           {/* Glowing yellow particle looping continuously along path */}
           <circle className="glowing-dot" r="3.5">

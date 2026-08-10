@@ -87,14 +87,18 @@
   stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 600;
-  stroke-dashoffset: 600;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
   animation: drawMonogram 3s ease-in-out infinite alternate;
+}
+
+.monogram-dot-static {
+  fill: rgba(255, 255, 255, 0.95);
 }
 
 @keyframes drawMonogram {
   0% {
-    stroke-dashoffset: 600;
+    stroke-dashoffset: 800;
   }
   100% {
     stroke-dashoffset: 0;
