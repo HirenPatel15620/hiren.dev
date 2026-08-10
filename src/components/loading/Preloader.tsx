@@ -11,7 +11,7 @@ const CRITICAL_IMAGES = [
   '/images/project-trading-app.png',
   '/images/project-record-system.png',
   '/images/project-reward-system.png',
-  '/favicon.png'
+  '/favicon.svg'
 ];
 
 export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
