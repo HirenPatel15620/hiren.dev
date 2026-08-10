@@ -1,7 +1,7 @@
 
 import { Box, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import TypewriterText from './animations/TypewriterText';
+import TextType from './animations/TextType';
 import SpotlightButton from './animations/SpotlightButton';
 
 export default function Hero() {
@@ -25,12 +25,13 @@ export default function Hero() {
             sx={{
                 position: 'relative',
                 minHeight: '100vh',
+                height: 'auto',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',
                 background: '#000000',
-                padding: 0,
+                padding: { xs: '5rem 0 3rem 0', md: 0 },
             }}
         >
             {/* Parallax Background */}
@@ -45,7 +46,6 @@ export default function Hero() {
                     background: '#000000',
                     zIndex: 1,
                     transform: `translateY(${backgroundY}px)`,
-                    // Dynamic gradient handled via global styles/CSS or specific component if needed
                 }}
             />
 
@@ -53,7 +53,8 @@ export default function Hero() {
                 className="hero-content-wrapper"
                 sx={{
                     width: '100%',
-                    height: '100vh',
+                    height: { xs: 'auto', md: '100vh' },
+                    minHeight: { xs: 'auto', md: '100vh' },
                     display: 'grid',
                     gridTemplateColumns: { xs: '1fr', md: '40% 60%' },
                     alignItems: 'center',
@@ -64,9 +65,10 @@ export default function Hero() {
                 <Box
                     className="hero-text"
                     sx={{
-                        paddingLeft: { xs: '2rem', md: '8%' },
-                        paddingRight: { xs: '2rem', md: 0 },
-                        paddingTop: { xs: '2rem', md: 0 },
+                        paddingLeft: { xs: '1.5rem', sm: '2rem', md: '8%' },
+                        paddingRight: { xs: '1.5rem', sm: '2rem', md: 0 },
+                        paddingTop: { xs: '1.5rem', md: 0 },
+                        paddingBottom: { xs: '2rem', md: 0 },
                         animation: 'fadeInUp 1s ease',
                         zIndex: 3,
                         order: { xs: 2, md: 1 },
@@ -75,7 +77,7 @@ export default function Hero() {
                     <Typography
                         variant="h1"
                         sx={{
-                            fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
+                            fontSize: { xs: '2.2rem', sm: '3rem', md: '3.5rem' },
                             fontWeight: 300,
                             lineHeight: 1.3,
                             marginBottom: '1rem',
@@ -88,26 +90,43 @@ export default function Hero() {
                     <Typography
                         variant="h2"
                         sx={{
-                            fontSize: { xs: '0.9rem', md: '1.1rem' },
+                            fontSize: { xs: '2rem', sm: '2rem' },
                             color: 'rgba(255, 255, 255, 0.6)',
-                            marginBottom: '3rem',
+                            marginBottom: { xs: '2rem', md: '3rem' },
                             fontWeight: 400,
                             letterSpacing: '0.5px',
                         }}
                     >
-                        <TypewriterText text="Software Engineer" typingSpeed={75}
-                            pauseDuration={1500}
-                            showCursor={true}
-                            cursorCharacter="|"
+                        <TextType
+                            text={['Web Developer', 'Front-End Developer', 'Back-End Developer', 'Full-Stack Developer']}
+                            typingSpeed={105}
+                            pauseDuration={1900}
+                            showCursor
+                            cursorCharacter="▎"
+                            deletingSpeed={50}
+                            variableSpeedEnabled={false}
+                            variableSpeedMin={60}
+                            variableSpeedMax={120}
+                            cursorBlinkDuration={0.8}
                         />
                     </Typography>
 
-                    <Box sx={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', flexDirection: { xs: 'column', sm: 'row' } }}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            gap: { xs: '1rem', sm: '1.5rem' },
+                            flexWrap: 'wrap',
+                            flexDirection: { xs: 'column', sm: 'row' },
+                            width: { xs: '100%', sm: 'auto' },
+                        }}
+                    >
                         <SpotlightButton
                             className="cursor-target"
                             href="#portfolio"
                             sx={{
                                 padding: '0.9rem 2rem',
+                                width: { xs: '100%', sm: 'auto' },
+                                textAlign: 'center',
                                 '&:hover': {
                                     borderColor: 'rgba(255, 255, 255, 0.5)',
                                 }
@@ -120,6 +139,8 @@ export default function Hero() {
                             href="#about"
                             sx={{
                                 background: '#7cb342',
+                                width: { xs: '100%', sm: 'auto' },
+                                textAlign: 'center',
                                 '&:hover': {
                                     background: '#8bc34a',
                                 }
@@ -133,6 +154,8 @@ export default function Hero() {
                             className="cursor-target"
                             sx={{
                                 border: '1px solid rgba(255, 255, 255, 0.3)',
+                                width: { xs: '100%', sm: 'auto' },
+                                textAlign: 'center',
                             }}
                         >
                             📥 DOWNLOAD RESUME
@@ -148,7 +171,7 @@ export default function Hero() {
                         top: 0,
                         bottom: 0,
                         width: { xs: '100%', md: '60%' },
-                        height: { xs: '50vh', md: '100%' },
+                        height: { xs: '320px', sm: '400px', md: '100%' },
                         animation: 'fadeIn 1.2s ease',
                         order: { xs: 1, md: 2 },
                     }}

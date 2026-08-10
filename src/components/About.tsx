@@ -30,7 +30,7 @@ export default function About() {
                             className="cursor-target"
                             sx={{
                                 background: 'rgba(26, 26, 46, 0.6)',
-                                padding: '3rem',
+                                padding: { xs: '1.5rem', sm: '2rem', md: '3rem' },
                                 borderRadius: '16px',
                                 backdropFilter: 'blur(10px)',
                                 border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -59,24 +59,25 @@ export default function About() {
                             <Box sx={{ marginTop: '2rem' }}>
                                 {[
                                     { label: 'Location:', value: 'Ahmedabad, Gujarat, India' },
-                                    { label: 'Email:', value: 'hirenpatel.ict19@gmail.com' },
                                     { label: 'LinkedIn:', value: '@hiren-patel', href: 'https://hirenwork.lovable.app/' }
                                 ].map((item, index) => (
                                     <Box
                                         key={index}
                                         sx={{
                                             display: 'flex',
-                                            gap: '1rem',
+                                            flexDirection: { xs: 'column', sm: 'row' },
+                                            alignItems: { xs: 'flex-start', sm: 'center' },
+                                            gap: { xs: '0.25rem', sm: '1rem' },
                                             marginBottom: '1rem',
-                                            padding: '1rem',
+                                            padding: { xs: '0.75rem 1rem', sm: '1rem' },
                                             background: 'rgba(255, 255, 255, 0.02)',
                                             borderRadius: '8px',
                                         }}
                                     >
-                                        <Typography sx={{ fontWeight: 600, color: '#6366f1', minWidth: '100px' }}>
+                                        <Typography sx={{ fontWeight: 600, color: '#6366f1', minWidth: { xs: 'auto', sm: '100px' } }}>
                                             {item.label}
                                         </Typography>
-                                        <Typography sx={{ color: '#ffffff' }}>
+                                        <Typography sx={{ color: '#ffffff', wordBreak: 'break-all', overflowWrap: 'anywhere' }}>
                                             {item.href ? (
                                                 <Link href={item.href} target="_blank" sx={{ color: '#06b6d4', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>
                                                     {item.value}
@@ -95,7 +96,7 @@ export default function About() {
                             className="cursor-target"
                             sx={{
                                 background: 'rgba(26, 26, 46, 0.6)',
-                                padding: '3rem',
+                                padding: { xs: '1.5rem', sm: '2rem', md: '3rem' },
                                 borderRadius: '16px',
                                 backdropFilter: 'blur(10px)',
                                 border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -115,7 +116,7 @@ export default function About() {
                             <Box
                                 sx={{
                                     background: 'rgba(255, 255, 255, 0.03)',
-                                    padding: '2rem',
+                                    padding: { xs: '1.25rem', sm: '2rem' },
                                     borderRadius: '12px',
                                     marginBottom: '2rem',
                                     borderLeft: '4px solid #6366f1',
@@ -138,7 +139,7 @@ export default function About() {
                             <Box
                                 sx={{
                                     background: 'rgba(255, 255, 255, 0.03)',
-                                    padding: '2rem',
+                                    padding: { xs: '1.25rem', sm: '2rem' },
                                     borderRadius: '12px',
                                 }}
                             >
@@ -151,7 +152,7 @@ export default function About() {
                                     { label: 'Interests:', value: 'Sports, Traveling and Quality family time' },
                                     { label: 'Blood Group:', value: 'O+' }
                                 ].map((item, index) => (
-                                    <Typography key={index} sx={{ color: '#b4b4c5', marginBottom: '1rem', lineHeight: 1.8 }}>
+                                    <Typography key={index} sx={{ color: '#b4b4c5', marginBottom: '1rem', lineHeight: 1.8, wordBreak: 'break-word' }}>
                                         <strong style={{ color: '#ffffff' }}>{item.label}</strong> {item.value}
                                     </Typography>
                                 ))}
