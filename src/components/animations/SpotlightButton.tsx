@@ -5,6 +5,9 @@ import type { ButtonProps } from '@mui/material';
 
 interface SpotlightButtonProps extends ButtonProps {
     children: React.ReactNode;
+    target?: string;
+    href?: string;
+    component?: any;
 }
 
 const SpotlightButton: React.FC<SpotlightButtonProps> = ({ children, sx, ...props }) => {

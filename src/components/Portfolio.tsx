@@ -1,25 +1,28 @@
 
-import { Box, Container, Typography, Grid, Paper } from '@mui/material';
+import { Box, Container, Typography, Grid, Paper, Button } from '@mui/material';
 
 export default function Portfolio() {
     const projects = [
         {
-            title: 'ISCTv9 Trading Platform',
-            description: 'Complete FX solution for managing trading operations',
+            title: 'ISCTv9 FX Trading Platform',
+            description: 'Enterprise end-to-end FX solution for sales, trading, risk management, and finance accounting.',
             image: '/images/project-trading-app.png',
-            tech: ['.NET Core', 'React', 'TypeScript', 'MS SQL']
+            tech: ['.NET Core', 'React', 'TypeScript', 'MS SQL', 'xUnit'],
+            accent: '#6366f1'
         },
         {
-            title: 'Online Record System',
-            description: 'Web application for managing incident records with geospatial features',
+            title: 'Online Record & Geospatial System',
+            description: 'Incident record tracking system integrated with interactive Leaflet GIS and SignalR real-time dispatch.',
             image: '/images/project-record-system.png',
-            tech: ['.NET Core', 'React', 'Leaflet', 'SignalR']
+            tech: ['.NET Core', 'React', 'Leaflet', 'SignalR'],
+            accent: '#06b6d4'
         },
         {
-            title: 'Reward Management System',
-            description: 'Secure banking customer reward auditing and management system',
+            title: 'Multi-Bank Reward Engine',
+            description: 'Secure banking customer reward points auditing, anti-spam validation, and multi-tenant portal engine.',
             image: '/images/project-reward-system.png',
-            tech: ['.NET Core', 'EF Core', 'React', 'SQL Server']
+            tech: ['.NET Core', 'EF Core', 'React', 'SQL Server'],
+            accent: '#10b981'
         }
     ];
 
@@ -28,40 +31,57 @@ export default function Portfolio() {
             id="portfolio"
             component="section"
             sx={{
-                background: '#0a0a0f', // bg-primary
+                background: '#0a0a0f',
                 position: 'relative',
-                padding: '4rem 0',
+                padding: { xs: '4rem 0', md: '6rem 0' },
             }}
         >
-            <Container>
-                <Box sx={{ textAlign: 'center', marginBottom: '4rem' }}>
-                    <Typography variant="h2" sx={{ fontSize: { xs: '2.2rem', md: '3rem' }, marginBottom: '1rem' }}>
+            <Container maxWidth="lg">
+                {/* Header */}
+                <Box sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '4.5rem' } }}>
+                    <Typography
+                        variant="h2"
+                        sx={{
+                            fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem' },
+                            fontWeight: 700,
+                            marginBottom: '1rem',
+                            letterSpacing: '-0.02em',
+                        }}
+                    >
                         My <span className="text-gradient">Portfolio</span>
                     </Typography>
-                    <Typography sx={{ fontSize: '1.2rem', color: '#b4b4c5' }}>
-                        Recent projects I've worked on
+                    <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: '#b4b4c5' }}>
+                        Visual showcase of core software solutions and enterprise platforms
                     </Typography>
                 </Box>
 
                 <Grid container spacing={4}>
                     {projects.map((project, index) => (
-                        <Grid size={{ xs: 12, md: 6 }} key={index}>
+                        <Grid size={{ xs: 12, md: 4 }} key={index}>
                             <Paper
+                                className="cursor-target"
                                 elevation={0}
                                 sx={{
                                     position: 'relative',
-                                    borderRadius: '16px',
+                                    borderRadius: '20px',
                                     overflow: 'hidden',
                                     cursor: 'pointer',
-                                    transition: '0.3s ease',
-                                    background: 'transparent',
+                                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    background: 'rgba(18, 18, 32, 0.65)',
+                                    backdropFilter: 'blur(12px)',
+                                    border: '1px solid rgba(255, 255, 255, 0.07)',
+                                    height: '100%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
                                     '&:hover': {
-                                        transform: 'translateY(-10px)',
+                                        transform: 'translateY(-8px)',
+                                        borderColor: project.accent,
+                                        boxShadow: `0 15px 35px -10px ${project.accent}40`,
                                         '& .portfolio-image img': {
-                                            transform: 'scale(1.1)',
+                                            transform: 'scale(1.08)',
                                         },
                                         '& .portfolio-overlay': {
-                                            transform: 'translateY(0)',
+                                            background: 'linear-gradient(to top, rgba(10, 10, 15, 0.98) 0%, rgba(10, 10, 15, 0.7) 100%)',
                                         }
                                     }
                                 }}
@@ -71,9 +91,8 @@ export default function Portfolio() {
                                     sx={{
                                         position: 'relative',
                                         overflow: 'hidden',
-                                        borderRadius: '16px',
                                         aspectRatio: '16/10',
-                                        backgroundColor: '#1a1a23', // Fallback background
+                                        backgroundColor: '#12121e',
                                     }}
                                 >
                                     <Box
@@ -82,13 +101,12 @@ export default function Portfolio() {
                                         alt={project.title}
                                         onError={(e: any) => {
                                             e.target.style.display = 'none';
-                                            // The parent Box background will show through
                                         }}
                                         sx={{
                                             width: '100%',
                                             height: '100%',
                                             objectFit: 'cover',
-                                            transition: '0.5s ease',
+                                            transition: 'transform 0.5s ease',
                                             display: 'block',
                                         }}
                                     />
@@ -96,44 +114,71 @@ export default function Portfolio() {
                                         className="portfolio-overlay"
                                         sx={{
                                             position: 'absolute',
-                                            bottom: 0,
+                                            top: 0,
                                             left: 0,
                                             right: 0,
-                                            background: 'linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, transparent 100%)',
-                                            padding: '3rem',
-                                            transform: 'translateY(60%)',
-                                            transition: '0.3s ease',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            justifyContent: 'flex-end',
-                                            height: '100%',
+                                            bottom: 0,
+                                            background: 'linear-gradient(to top, rgba(10, 10, 15, 0.9) 0%, transparent 60%)',
+                                            transition: 'all 0.3s ease',
+                                        }}
+                                    />
+                                </Box>
+
+                                <Box sx={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                                    <Typography
+                                        variant="h3"
+                                        sx={{
+                                            fontSize: '1.25rem',
+                                            fontWeight: 700,
+                                            color: '#ffffff',
+                                            marginBottom: '0.65rem',
                                         }}
                                     >
-                                        <Typography variant="h3" sx={{ fontSize: '1.5rem', marginBottom: '1rem', fontFamily: "'Outfit', sans-serif" }}>
-                                            {project.title}
-                                        </Typography>
-                                        <Typography sx={{ color: '#b4b4c5', marginBottom: '1.5rem' }}>
-                                            {project.description}
-                                        </Typography>
-                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                                            {project.tech.map((t, i) => (
-                                                <Box
-                                                    key={i}
-                                                    component="span"
-                                                    sx={{
-                                                        padding: '0.4rem 0.8rem',
-                                                        background: 'rgba(99, 102, 241, 0.2)',
-                                                        borderRadius: '50px',
-                                                        fontSize: '0.85rem',
-                                                        border: '1px solid rgba(99, 102, 241, 0.4)',
-                                                        color: '#ffffff',
-                                                    }}
-                                                >
-                                                    {t}
-                                                </Box>
-                                            ))}
-                                        </Box>
+                                        {project.title}
+                                    </Typography>
+                                    <Typography sx={{ color: '#a0a0be', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1.5rem', flexGrow: 1 }}>
+                                        {project.description}
+                                    </Typography>
+
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginBottom: '1.5rem' }}>
+                                        {project.tech.map((t, i) => (
+                                            <Box
+                                                key={i}
+                                                component="span"
+                                                sx={{
+                                                    padding: '0.3rem 0.7rem',
+                                                    background: 'rgba(255, 255, 255, 0.03)',
+                                                    borderRadius: '8px',
+                                                    fontSize: '0.78rem',
+                                                    fontWeight: 500,
+                                                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                                                    color: '#e2e8f0',
+                                                }}
+                                            >
+                                                {t}
+                                            </Box>
+                                        ))}
                                     </Box>
+
+                                    <Button
+                                        component="a"
+                                        href="#projects"
+                                        size="small"
+                                        sx={{
+                                            alignSelf: 'flex-start',
+                                            color: project.accent,
+                                            fontWeight: 600,
+                                            fontSize: '0.85rem',
+                                            padding: 0,
+                                            textTransform: 'none',
+                                            '&:hover': {
+                                                background: 'transparent',
+                                                textDecoration: 'underline',
+                                            }
+                                        }}
+                                    >
+                                        View Architecture Details →
+                                    </Button>
                                 </Box>
                             </Paper>
                         </Grid>
@@ -143,3 +188,4 @@ export default function Portfolio() {
         </Box>
     );
 }
+
