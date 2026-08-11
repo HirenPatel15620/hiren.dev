@@ -32,35 +32,6 @@ export default function Hero() {
                 padding: { xs: '6rem 0 3rem 0', md: 0 },
             }}
         >
-            {/* Ambient Radial Glows */}
-            <Box
-                sx={{
-                    position: 'absolute',
-                    top: '15%',
-                    left: '10%',
-                    width: '450px',
-                    height: '450px',
-                    borderRadius: '50%',
-                    background: 'radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%)',
-                    filter: 'blur(70px)',
-                    pointerEvents: 'none',
-                    zIndex: 1,
-                }}
-            />
-            <Box
-                sx={{
-                    position: 'absolute',
-                    bottom: '20%',
-                    right: '15%',
-                    width: '400px',
-                    height: '400px',
-                    borderRadius: '50%',
-                    background: 'radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%)',
-                    filter: 'blur(60px)',
-                    pointerEvents: 'none',
-                    zIndex: 1,
-                }}
-            />
 
             {/* Parallax Background */}
             <Box
@@ -278,29 +249,13 @@ export default function Hero() {
                             onError={() => setImgError(true)}
                             alt="Hiren Patel - Software Engineer"
                             sx={{
-                                maxHeight: { xs: '100%', md: '100vh' },
+                                maxHeight: { xs: '100%', md: '95vh' },
                                 maxWidth: '100%',
                                 width: 'auto',
                                 height: 'auto',
                                 objectFit: 'contain',
                                 objectPosition: 'center bottom',
                                 padding: 0,
-                            }}
-                        />
-                        <Box
-                            className="image-overlay"
-                            sx={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                pointerEvents: 'none',
-                                background: {
-                                    xs: 'linear-gradient(to bottom, transparent 40%, #000000 100%)',
-                                    md: 'linear-gradient(to right, #000000 0%, transparent 25%, rgba(0, 0, 0, 0.4) 100%), linear-gradient(to top, #000000 0%, transparent 20%)',
-                                },
-                                zIndex: 1,
                             }}
                         />
                     </Box>

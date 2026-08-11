@@ -31,7 +31,7 @@ export default function Portfolio() {
             id="portfolio"
             component="section"
             sx={{
-                background: '#0a0a0f',
+                background: 'linear-gradient(180deg, #050611 0%, #080a1c 100%)',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
             }}

@@ -41,7 +41,7 @@ export default function Experience() {
             id="experience"
             component="section"
             sx={{
-                background: '#0a0a0f',
+                background: 'linear-gradient(180deg, #070815 0%, #0a0b1d 100%)',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
             }}
@@ -127,7 +127,7 @@ export default function Experience() {
                                             {item.role}
                                         </Typography>
                                         <Typography variant="h4" sx={{ color: '#06b6d4', fontSize: '1.05rem', fontWeight: 600 }}>
-                                            {item.company} <span style={{ color: '#8b8ba7', fontWeight: 400 }}>— {item.location}</span>
+                                            {item.company} <span style={{ color: '#a0a0be', fontWeight: 400 }}>— {item.location}</span>
                                         </Typography>
                                     </Box>
 

@@ -49,8 +49,7 @@ export default function Navigation() {
 
     useEffect(() => {
         const handleScroll = () => {
-            const heroThreshold = window.innerHeight * 0.75;
-            if (window.scrollY > heroThreshold) {
+            if (window.scrollY > 40) {
                 setScrolled(true);
             } else {
                 setScrolled(false);
@@ -100,15 +99,15 @@ export default function Navigation() {
         <AppBar
             position="fixed"
             sx={{
-                background: 'rgba(10, 10, 15, 0.85)',
-                backdropFilter: 'blur(16px)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                background: scrolled ? 'rgba(0, 0, 0, 0.92)' : 'rgba(0, 0, 0, 0.4)',
+                backdropFilter: scrolled ? 'blur(24px)' : 'blur(8px)',
+                borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.04)',
                 transition: 'all 0.35s ease-in-out',
-                transform: scrolled ? 'translateY(0)' : 'translateY(-100%)',
-                opacity: scrolled ? 1 : 0,
-                pointerEvents: scrolled ? 'auto' : 'none',
-                boxShadow: '0 10px 30px -10px rgba(0, 0, 0, 0.5)',
-                padding: '0.6rem 0',
+                transform: 'translateY(0)',
+                opacity: 1,
+                pointerEvents: 'auto',
+                boxShadow: scrolled ? '0 10px 30px -10px rgba(0, 0, 0, 0.8)' : 'none',
+                padding: scrolled ? '0.5rem 0' : '0.8rem 0',
                 zIndex: 1100,
             }}
         >
@@ -216,7 +215,7 @@ export default function Navigation() {
                     ) : (
                         <IconButton
                             color="inherit"
-                            aria-label="open drawer"
+                            aria-label="Open navigation menu"
                             edge="start"
                             onClick={handleDrawerToggle}
                             className="hamburger"
@@ -250,7 +249,7 @@ export default function Navigation() {
                         <Typography variant="h6" sx={{ fontWeight: 700, color: '#ffffff' }}>
                             Menu
                         </Typography>
-                        <IconButton onClick={handleDrawerToggle} sx={{ color: 'white' }}>
+                        <IconButton onClick={handleDrawerToggle} aria-label="Close navigation menu" sx={{ color: 'white' }}>
                             <CloseIcon />
                         </IconButton>
                     </Box>

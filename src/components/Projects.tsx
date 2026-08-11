@@ -56,7 +56,7 @@ export default function Projects() {
             id="projects"
             component="section"
             sx={{
-                background: '#0e0e17',
+                background: 'linear-gradient(180deg, #080718 0%, #0a0920 100%)',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
             }}

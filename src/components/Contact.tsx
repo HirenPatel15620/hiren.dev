@@ -27,7 +27,7 @@ export default function Contact() {
             id="contact"
             component="section"
             sx={{
-                background: '#0e0e17',
+                background: 'linear-gradient(180deg, #0b0a1a 0%, #110e28 100%)',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
             }}
@@ -154,6 +154,8 @@ export default function Contact() {
                                 <Link
                                     href="https://www.linkedin.com/in/hiren-patel-388a83236"
                                     target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Visit Hiren Patel LinkedIn Profile"
                                     sx={{
                                         color: '#06b6d4',
                                         textDecoration: 'none',
@@ -209,6 +211,7 @@ export default function Contact() {
                             <Button
                                 variant="contained"
                                 href="mailto:hirenpatel.ict19@gmail.com"
+                                aria-label="Send an email to Hiren Patel"
                                 className="cursor-target"
                                 sx={{
                                     background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',

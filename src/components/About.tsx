@@ -16,7 +16,7 @@ export default function About() {
             id="about"
             component="section"
             sx={{
-                background: '#0e0e17',
+                background: 'linear-gradient(180deg, #0b0c16 0%, #0d0e1d 100%)',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
             }}
@@ -208,7 +208,7 @@ export default function About() {
                                 <Typography sx={{ color: '#06b6d4', fontWeight: 600, fontSize: '0.9rem', marginBottom: '0.3rem' }}>
                                     Adani Institute of Infrastructure Engineering (GTU)
                                 </Typography>
-                                <Box sx={{ display: 'flex', justifyContent: 'space-between', color: '#8b8ba7', fontSize: '0.85rem' }}>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', color: '#a0a0be', fontSize: '0.85rem' }}>
                                     <span>JULY 2019 – MAY 2023</span>
                                     <span style={{ color: '#10b981', fontWeight: 600 }}>CGPA: 8.4</span>
                                 </Box>
@@ -240,7 +240,7 @@ export default function About() {
                                             fontSize: '0.9rem',
                                         }}
                                     >
-                                        <Typography component="span" sx={{ color: '#8b8ba7', fontWeight: 500, minWidth: '110px' }}>
+                                        <Typography component="span" sx={{ color: '#a0a0be', fontWeight: 500, minWidth: '110px' }}>
                                             {item.label}:
                                         </Typography>
                                         <Typography component="span" sx={{ color: '#ffffff', fontWeight: 500, textAlign: 'right' }}>

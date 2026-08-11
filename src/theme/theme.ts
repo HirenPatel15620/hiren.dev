@@ -10,8 +10,8 @@ export const theme = createTheme({
             main: '#8b5cf6', // accent-secondary
         },
         background: {
-            default: '#0a0a0f', // bg-primary
-            paper: '#141420',   // bg-secondary
+            default: '#000000', // pure pitch black
+            paper: '#0c0c10',   // dark pitch paper
         },
         text: {
             primary: '#ffffff',
@@ -47,24 +47,33 @@ export const theme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    borderRadius: 0,
-                    padding: '0.9rem 2rem',
-                    fontSize: '0.75rem',
+                    borderRadius: '50px',
+                    padding: '0.75rem 1.8rem',
+                    fontSize: '0.85rem',
+                    fontWeight: 600,
+                    textTransform: 'none',
+                    letterSpacing: '0.3px',
+                    transition: 'all 0.3s ease',
                 },
                 containedPrimary: {
-                    backgroundColor: '#7cb342',
+                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
+                    color: '#ffffff',
+                    boxShadow: '0 4px 20px rgba(99, 102, 241, 0.35)',
                     '&:hover': {
-                        backgroundColor: '#8bc34a',
+                        background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
                         transform: 'translateY(-2px)',
-                        boxShadow: '0 4px 12px rgba(124, 179, 66, 0.4)',
+                        boxShadow: '0 8px 25px rgba(99, 102, 241, 0.55)',
                     },
                 },
                 outlined: {
-                    borderColor: 'rgba(255, 255, 255, 0.3)',
-                    color: 'white',
+                    borderColor: 'rgba(99, 102, 241, 0.4)',
+                    color: '#ffffff',
+                    background: 'rgba(99, 102, 241, 0.08)',
+                    backdropFilter: 'blur(8px)',
                     '&:hover': {
-                        borderColor: 'rgba(255, 255, 255, 0.5)',
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        borderColor: '#6366f1',
+                        backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                        boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)',
                         transform: 'translateY(-2px)',
                     },
                 },

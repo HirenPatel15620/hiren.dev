@@ -77,7 +77,7 @@ export default function Skills() {
             id="skills"
             component="section"
             sx={{
-                background: '#0a0a0f',
+                background: 'linear-gradient(180deg, #0d0e1d 0%, #080917 100%)',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
                 '&::before': {
