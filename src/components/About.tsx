@@ -235,7 +235,7 @@ export default function About() {
                                         key={index}
                                         sx={{
                                             display: 'flex',
-                                            justify: 'space-between',
+                                            justifyContent: 'space-between',
                                             marginBottom: '0.65rem',
                                             fontSize: '0.9rem',
                                         }}

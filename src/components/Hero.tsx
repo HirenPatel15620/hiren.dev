@@ -278,7 +278,7 @@ export default function Hero() {
                             onError={() => setImgError(true)}
                             alt="Hiren Patel - Software Engineer"
                             sx={{
-                                maxHeight: { xs: '100%', md: '86vh' },
+                                maxHeight: { xs: '100%', md: '100vh' },
                                 maxWidth: '100%',
                                 width: 'auto',
                                 height: 'auto',

@@ -91,7 +91,7 @@ export default function Experience() {
                             <Box
                                 sx={{
                                     position: 'absolute',
-                                    left: { xs: '-34px', sm: '-46px', md: '-54px' },
+                                    left: { xs: '-36px', sm: '-48px', md: '-56px' },
                                     top: '28px',
                                     width: '18px',
                                     height: '18px',
