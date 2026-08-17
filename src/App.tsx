@@ -1,7 +1,8 @@
-import { useEffect, useState, useCallback } from 'react';
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import { theme } from './theme/theme';
+import { useEffect, useState, useCallback, useMemo } from 'react';
+import { ThemeProvider, CssBaseline, Box, CircularProgress } from '@mui/material';
+import { getTheme, ACCENT_PRIMARY } from './theme/theme';
 import { GlobalStyles } from './theme/globalStyles';
+import { ThemeContextProvider, useThemeMode } from './context/ThemeContext';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -14,7 +15,10 @@ import Footer from './components/Footer';
 import TargetCursor from './components/TargetCursor';
 import Preloader from './components/loading/Preloader';
 
-function App() {
+function AppContent() {
+  const { mode, isTransitioning } = useThemeMode();
+  const theme = useMemo(() => getTheme(mode), [mode]);
+
   const [loading, setLoading] = useState(true);
   const [showPreloader, setShowPreloader] = useState(true);
 
@@ -52,6 +56,28 @@ function App() {
         <Preloader onComplete={handlePreloaderComplete} />
       )}
 
+      {/* Theme Transition Loader Overlay */}
+      {isTransitioning && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999,
+            background: mode === 'dark' ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.7)',
+            backdropFilter: 'blur(10px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            animation: 'fadeIn 0.2s ease',
+          }}
+        >
+          <CircularProgress size={60} sx={{ color: ACCENT_PRIMARY }} />
+        </Box>
+      )}
+
       <TargetCursor
         spinDuration={2}
         hideDefaultCursor={true}
@@ -75,5 +101,12 @@ function App() {
   );
 }
 
-export default App;
+function App() {
+  return (
+    <ThemeContextProvider>
+      <AppContent />
+    </ThemeContextProvider>
+  );
+}
 
+export default App;

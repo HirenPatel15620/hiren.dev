@@ -1,6 +1,7 @@
-import { Box, Container, Typography, Grid, Chip, SvgIcon } from '@mui/material';
+import { Box, Container, Typography, Grid, Chip, SvgIcon, useTheme } from '@mui/material';
 import type { SvgIconProps } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import { ACCENT_PRIMARY, ACCENT_GRADIENT } from '../theme/theme';
 
 const DnsRoundedIcon = (props: SvgIconProps) => (
     <SvgIcon {...props}>
@@ -37,49 +38,43 @@ const skillsData = [
         category: 'Backend & Framework',
         subtitle: 'Core Server-side & APIs',
         icon: DnsRoundedIcon,
-        accentColor: '#06b6d4',
-        accentGlow: 'rgba(6, 182, 212, 0.25)',
-        gradient: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)',
         skills: ['.NET Core', '.NET 6', 'Entity Framework', 'LINQ', 'Web API', 'Microservices']
     },
     {
         category: 'Frontend Development',
         subtitle: 'User Experience & Web UI',
         icon: CodeRoundedIcon,
-        accentColor: '#8b5cf6',
-        accentGlow: 'rgba(139, 92, 246, 0.25)',
-        gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
         skills: ['JavaScript', 'HTML5 & CSS3', 'React.js (TypeScript)', 'SOLID Principles', 'OpenID Connect']
     },
     {
         category: 'Database & DevOps',
         subtitle: 'Cloud & Data Infrastructure',
         icon: CloudQueueRoundedIcon,
-        accentColor: '#10b981',
-        accentGlow: 'rgba(16, 185, 129, 0.25)',
-        gradient: 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)',
         skills: ['MS SQL', 'PostgreSQL', 'Azure DevOps', 'Version Control Systems']
     },
     {
         category: 'Tools & Methodologies',
         subtitle: 'Quality & Agile Workflow',
         icon: BuildRoundedIcon,
-        accentColor: '#ec4899',
-        accentGlow: 'rgba(236, 72, 153, 0.25)',
-        gradient: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
         skills: ['SonarQube', 'Sentry', 'Jira', 'CI/CD Pipeline', 'SCRUM']
     }
 ];
 
 export default function Skills() {
+    const theme = useTheme();
+    const isDark = theme.palette.mode === 'dark';
+
     return (
         <Box
             id="skills"
             component="section"
             sx={{
-                background: 'linear-gradient(180deg, #0d0e1d 0%, #080917 100%)',
+                background: isDark
+                    ? 'linear-gradient(180deg, #0a0a0a 0%, #050505 100%)'
+                    : 'linear-gradient(180deg, #efefef 0%, #f5f5f7 100%)',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
+                transition: 'background 0.4s ease',
                 '&::before': {
                     content: '""',
                     position: 'absolute',
@@ -88,7 +83,9 @@ export default function Skills() {
                     width: '300px',
                     height: '300px',
                     borderRadius: '50%',
-                    background: 'radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, transparent 70%)',
+                    background: isDark
+                        ? 'radial-gradient(circle, rgba(102, 126, 234, 0.04) 0%, transparent 70%)'
+                        : 'radial-gradient(circle, rgba(102, 126, 234, 0.06) 0%, transparent 70%)',
                     pointerEvents: 'none',
                     filter: 'blur(50px)',
                 },
@@ -100,7 +97,9 @@ export default function Skills() {
                     width: '350px',
                     height: '350px',
                     borderRadius: '50%',
-                    background: 'radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 70%)',
+                    background: isDark
+                        ? 'radial-gradient(circle, rgba(118, 75, 162, 0.04) 0%, transparent 70%)'
+                        : 'radial-gradient(circle, rgba(118, 75, 162, 0.06) 0%, transparent 70%)',
                     pointerEvents: 'none',
                     filter: 'blur(50px)',
                 }
@@ -116,9 +115,9 @@ export default function Skills() {
                             gap: '0.5rem',
                             padding: '0.4rem 1rem',
                             borderRadius: '50px',
-                            background: 'rgba(99, 102, 241, 0.08)',
-                            border: '1px solid rgba(99, 102, 241, 0.2)',
-                            color: '#8b5cf6',
+                            background: isDark ? 'rgba(102, 126, 234, 0.08)' : 'rgba(102, 126, 234, 0.06)',
+                            border: `1px solid ${isDark ? 'rgba(102, 126, 234, 0.2)' : 'rgba(102, 126, 234, 0.25)'}`,
+                            color: ACCENT_PRIMARY,
                             fontSize: '0.85rem',
                             fontWeight: 600,
                             letterSpacing: '1px',
@@ -126,7 +125,7 @@ export default function Skills() {
                             marginBottom: '1rem',
                         }}
                     >
-                        <AutoAwesomeIcon sx={{ fontSize: '1rem', color: '#6366f1' }} />
+                        <AutoAwesomeIcon sx={{ fontSize: '1rem', color: ACCENT_PRIMARY }} />
                         Expertise & Capability
                     </Box>
 
@@ -137,6 +136,7 @@ export default function Skills() {
                             fontWeight: 700,
                             marginBottom: '1rem',
                             letterSpacing: '-0.02em',
+                            color: theme.palette.text.primary,
                         }}
                     >
                         Technical <span className="text-gradient">Skills</span>
@@ -144,7 +144,7 @@ export default function Skills() {
                     <Typography
                         sx={{
                             fontSize: { xs: '1rem', md: '1.15rem' },
-                            color: '#b4b4c5',
+                            color: theme.palette.text.secondary,
                             maxWidth: '600px',
                             margin: '0 auto',
                             lineHeight: 1.6,
@@ -161,20 +161,20 @@ export default function Skills() {
                         return (
                             <Grid key={index} size={{ xs: 12, md: 6 }}>
                                 <SpotlightCard
-                                    spotlightColor={item.accentGlow}
+                                    spotlightColor="rgba(102, 126, 234, 0.12)"
                                     sx={{
                                         height: '100%',
-                                        background: 'rgba(18, 18, 32, 0.65)',
+                                        background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                         backdropFilter: 'blur(12px)',
                                         borderRadius: '20px',
-                                        border: '1px solid rgba(255, 255, 255, 0.07)',
+                                        border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)'}`,
                                         transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
                                         display: 'flex',
                                         flexDirection: 'column',
                                         '&:hover': {
                                             transform: 'translateY(-6px)',
-                                            borderColor: item.accentColor,
-                                            boxShadow: `0 12px 30px -10px ${item.accentGlow}`,
+                                            borderColor: ACCENT_PRIMARY,
+                                            boxShadow: '0 12px 30px -10px rgba(102, 126, 234, 0.2)',
                                         }
                                     }}
                                 >
@@ -206,10 +206,12 @@ export default function Skills() {
                                                         display: 'flex',
                                                         alignItems: 'center',
                                                         justifyContent: 'center',
-                                                        background: `radial-gradient(circle at top left, ${item.accentGlow}, transparent)`,
-                                                        border: `1px solid ${item.accentColor}40`,
-                                                        color: item.accentColor,
-                                                        boxShadow: `0 4px 15px ${item.accentGlow}`,
+                                                        background: isDark
+                                                            ? 'radial-gradient(circle at top left, rgba(102, 126, 234, 0.2), transparent)'
+                                                            : 'radial-gradient(circle at top left, rgba(102, 126, 234, 0.15), transparent)',
+                                                        border: `1px solid ${ACCENT_PRIMARY}40`,
+                                                        color: ACCENT_PRIMARY,
+                                                        boxShadow: '0 4px 15px rgba(102, 126, 234, 0.15)',
                                                         flexShrink: 0,
                                                     }}
                                                 >
@@ -223,7 +225,7 @@ export default function Skills() {
                                                             fontWeight: 700,
                                                             lineHeight: 1.2,
                                                             marginBottom: '0.25rem',
-                                                            background: item.gradient,
+                                                            background: ACCENT_GRADIENT,
                                                             WebkitBackgroundClip: 'text',
                                                             WebkitTextFillColor: 'transparent',
                                                             backgroundClip: 'text',
@@ -234,7 +236,7 @@ export default function Skills() {
                                                     <Typography
                                                         sx={{
                                                             fontSize: '0.85rem',
-                                                            color: '#8b8ba7',
+                                                            color: theme.palette.text.secondary,
                                                             fontWeight: 400,
                                                         }}
                                                     >
@@ -247,9 +249,9 @@ export default function Skills() {
                                                 label={`${item.skills.length} Techs`}
                                                 size="small"
                                                 sx={{
-                                                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                                                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                                                    color: '#a0a0be',
+                                                    backgroundColor: isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.04)',
+                                                    border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)'}`,
+                                                    color: theme.palette.text.secondary,
                                                     fontSize: '0.75rem',
                                                     fontWeight: 600,
                                                     height: '26px',
@@ -276,23 +278,23 @@ export default function Skills() {
                                                         alignItems: 'center',
                                                         gap: '0.4rem',
                                                         padding: { xs: '0.5rem 0.9rem', sm: '0.55rem 1.1rem' },
-                                                        background: 'rgba(255, 255, 255, 0.03)',
-                                                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                                                        background: isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 0, 0, 0.03)',
+                                                        border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)'}`,
                                                         borderRadius: '12px',
                                                         fontSize: { xs: '0.82rem', sm: '0.88rem' },
                                                         fontWeight: 500,
-                                                        color: '#e2e8f0',
+                                                        color: theme.palette.text.primary,
                                                         transition: 'all 0.25s ease',
                                                         cursor: 'default',
                                                         '&:hover': {
-                                                            background: `rgba(${parseInt(item.accentColor.slice(1, 3), 16)}, ${parseInt(item.accentColor.slice(3, 5), 16)}, ${parseInt(item.accentColor.slice(5, 7), 16)}, 0.12)`,
-                                                            borderColor: item.accentColor,
-                                                            color: '#ffffff',
+                                                            background: 'rgba(102, 126, 234, 0.12)',
+                                                            borderColor: ACCENT_PRIMARY,
+                                                            color: theme.palette.text.primary,
                                                             transform: 'translateY(-2px)',
-                                                            boxShadow: `0 4px 12px ${item.accentGlow}`,
+                                                            boxShadow: '0 4px 12px rgba(102, 126, 234, 0.15)',
                                                             '& .skill-dot': {
-                                                                backgroundColor: item.accentColor,
-                                                                boxShadow: `0 0 8px ${item.accentColor}`,
+                                                                backgroundColor: ACCENT_PRIMARY,
+                                                                boxShadow: `0 0 8px ${ACCENT_PRIMARY}`,
                                                             }
                                                         }
                                                     }}
@@ -303,7 +305,7 @@ export default function Skills() {
                                                             width: '6px',
                                                             height: '6px',
                                                             borderRadius: '50%',
-                                                            backgroundColor: 'rgba(255, 255, 255, 0.25)',
+                                                            backgroundColor: isDark ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.2)',
                                                             transition: 'all 0.25s ease',
                                                         }}
                                                     />
@@ -321,4 +323,3 @@ export default function Skills() {
         </Box>
     );
 }
-

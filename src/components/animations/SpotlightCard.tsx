@@ -1,6 +1,6 @@
 
 import React, { useRef, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import type { BoxProps } from '@mui/material';
 
 interface SpotlightCardProps extends BoxProps {
@@ -10,13 +10,18 @@ interface SpotlightCardProps extends BoxProps {
 
 const SpotlightCard: React.FC<SpotlightCardProps> = ({
     children,
-    spotlightColor = 'rgba(99, 102, 241, 0.15)',
+    spotlightColor,
     sx,
     ...props
 }) => {
     const divRef = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [opacity, setOpacity] = useState(0);
+    const theme = useTheme();
+    const isDark = theme.palette.mode === 'dark';
+
+    const defaultSpotlight = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.04)';
+    const color = spotlightColor || defaultSpotlight;
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!divRef.current) return;
@@ -46,8 +51,8 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
                 position: 'relative',
                 overflow: 'hidden',
                 borderRadius: '16px',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-                background: 'rgba(26, 26, 46, 0.6)', // Standard card bg
+                border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}`,
+                background: isDark ? 'rgba(20, 20, 20, 0.6)' : 'rgba(255, 255, 255, 0.7)',
                 transition: '0.3s ease',
                 ...sx,
             }}
@@ -64,7 +69,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
                     opacity: opacity,
                     transition: 'opacity 0.3s',
                     zIndex: 1,
-                    background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 40%)`,
+                    background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${color}, transparent 40%)`,
                 }}
             />
             <Box sx={{ position: 'relative', zIndex: 2, height: '100%' }}>

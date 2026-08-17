@@ -1,14 +1,13 @@
 
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, useTheme } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import { ACCENT_PRIMARY } from '../theme/theme';
 
 const projectsData = [
     {
         id: 'isctv9',
         title: 'ISCTv9 — Enterprise FX Trading & Banking Platform',
         subtitle: 'Comprehensive foreign exchange (FX) solution managing Sales, KYC/Compliance, Trading, Risk, Treasury & Finance.',
-        accent: '#6366f1',
-        glowColor: 'rgba(99, 102, 241, 0.25)',
         techStack: ['.NET Core API', 'Entity Framework Core', 'React.js', 'TypeScript', 'MS SQL', 'OpenID Principal', 'SonarQube', 'xUnit', 'React Testing Library'],
         modules: [
             'CRM & Pre-Trade Intervention: Manages real-time limits, margins, pre-trade risks, and affiliate queues.',
@@ -22,8 +21,6 @@ const projectsData = [
         id: 'online-record-system',
         title: 'Online Incident & Geospatial Record System',
         subtitle: 'Real-time incident record collection, wildlife tracking, geospatial Leaflet mapping, and community resource dispatch.',
-        accent: '#06b6d4',
-        glowColor: 'rgba(6, 182, 212, 0.25)',
         techStack: ['.NET Core API', 'Entity Framework Core', 'SQL Server', 'Leaflet GIS', 'SignalR Real-time', 'React.js', 'TypeScript'],
         modules: [
             'Role-Based Granular Access Control: Configurable permissions dictating record creation, audit visibility, and modification rights.',
@@ -37,8 +34,6 @@ const projectsData = [
         id: 'reward-management-system',
         title: 'Multi-Bank Customer Reward & Audit System',
         subtitle: 'Secure customer reward points accrual, redemption, anti-spam validation, and multi-portal banking engine.',
-        accent: '#10b981',
-        glowColor: 'rgba(16, 185, 129, 0.25)',
         techStack: ['.NET Core API', 'Entity Framework Core', 'SQL Server Stored Procedures', 'React.js', 'TypeScript'],
         modules: [
             'White-Label Bank Branding: Customizable UI themes tailored to individual banking clients and corporate partners.',
@@ -51,14 +46,20 @@ const projectsData = [
 ];
 
 export default function Projects() {
+    const theme = useTheme();
+    const isDark = theme.palette.mode === 'dark';
+
     return (
         <Box
             id="projects"
             component="section"
             sx={{
-                background: 'linear-gradient(180deg, #080718 0%, #0a0920 100%)',
+                background: isDark
+                    ? 'linear-gradient(180deg, #080808 0%, #0a0a0a 100%)'
+                    : 'linear-gradient(180deg, #efefef 0%, #f5f5f7 100%)',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
+                transition: 'background 0.4s ease',
             }}
         >
             <Container maxWidth="lg">
@@ -71,11 +72,12 @@ export default function Projects() {
                             fontWeight: 700,
                             marginBottom: '1rem',
                             letterSpacing: '-0.02em',
+                            color: theme.palette.text.primary,
                         }}
                     >
                         Key <span className="text-gradient">Projects</span>
                     </Typography>
-                    <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: '#b4b4c5' }}>
+                    <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: theme.palette.text.secondary }}>
                         Production software systems and enterprise applications engineered for real-world impact
                     </Typography>
                 </Box>
@@ -86,18 +88,18 @@ export default function Projects() {
                         <SpotlightCard
                             key={index}
                             className="cursor-target"
-                            spotlightColor={project.glowColor}
+                            spotlightColor="rgba(102, 126, 234, 0.12)"
                             sx={{
-                                background: 'rgba(18, 18, 32, 0.65)',
+                                background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '1.75rem', sm: '2.25rem', md: '2.75rem' },
                                 borderRadius: '24px',
                                 backdropFilter: 'blur(12px)',
-                                border: '1px solid rgba(255, 255, 255, 0.07)',
+                                border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)'}`,
                                 transition: 'all 0.35s ease',
                                 '&:hover': {
                                     transform: 'translateY(-6px)',
-                                    borderColor: project.accent,
-                                    boxShadow: `0 15px 35px -10px ${project.glowColor}`,
+                                    borderColor: ACCENT_PRIMARY,
+                                    boxShadow: '0 15px 35px -10px rgba(102, 126, 234, 0.2)',
                                 }
                             }}
                         >
@@ -108,13 +110,13 @@ export default function Projects() {
                                     sx={{
                                         fontSize: { xs: '1.4rem', sm: '1.75rem' },
                                         fontWeight: 700,
-                                        color: '#ffffff',
+                                        color: theme.palette.text.primary,
                                         marginBottom: '0.5rem',
                                     }}
                                 >
                                     {project.title}
                                 </Typography>
-                                <Typography sx={{ color: '#a0a0be', fontSize: { xs: '0.92rem', sm: '1.02rem' }, lineHeight: 1.6 }}>
+                                <Typography sx={{ color: theme.palette.text.secondary, fontSize: { xs: '0.92rem', sm: '1.02rem' }, lineHeight: 1.6 }}>
                                     {project.subtitle}
                                 </Typography>
                             </Box>
@@ -127,12 +129,12 @@ export default function Projects() {
                                         component="span"
                                         sx={{
                                             padding: '0.4rem 0.85rem',
-                                            background: `rgba(${parseInt(project.accent.slice(1, 3), 16)}, ${parseInt(project.accent.slice(3, 5), 16)}, ${parseInt(project.accent.slice(5, 7), 16)}, 0.1)`,
-                                            border: `1px solid ${project.accent}35`,
+                                            background: 'rgba(102, 126, 234, 0.08)',
+                                            border: `1px solid ${ACCENT_PRIMARY}30`,
                                             borderRadius: '8px',
                                             fontSize: '0.82rem',
                                             fontWeight: 600,
-                                            color: '#ffffff',
+                                            color: theme.palette.text.primary,
                                         }}
                                     >
                                         {tech}
@@ -142,7 +144,7 @@ export default function Projects() {
 
                             {/* Key Modules Grid */}
                             <Box sx={{ marginBottom: '2rem' }}>
-                                <Typography sx={{ color: '#ffffff', fontSize: '0.95rem', fontWeight: 700, marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                <Typography sx={{ color: theme.palette.text.primary, fontSize: '0.95rem', fontWeight: 700, marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                                     Key Modules & Core Architecture:
                                 </Typography>
                                 <Box
@@ -158,16 +160,16 @@ export default function Projects() {
                                             <Box
                                                 key={mIdx}
                                                 sx={{
-                                                    background: 'rgba(255, 255, 255, 0.02)',
-                                                    border: '1px solid rgba(255, 255, 255, 0.05)',
+                                                    background: isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)',
+                                                    border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}`,
                                                     borderRadius: '12px',
                                                     padding: '1rem 1.25rem',
                                                 }}
                                             >
-                                                <Typography sx={{ color: project.accent, fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.25rem' }}>
+                                                <Typography sx={{ color: ACCENT_PRIMARY, fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.25rem' }}>
                                                     ❖ {modTitle}
                                                 </Typography>
-                                                <Typography sx={{ color: '#c4c4d5', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                                                <Typography sx={{ color: theme.palette.text.secondary, fontSize: '0.88rem', lineHeight: 1.5 }}>
                                                     {modDesc}
                                                 </Typography>
                                             </Box>
@@ -180,15 +182,15 @@ export default function Projects() {
                             <Box
                                 sx={{
                                     padding: '1rem 1.25rem',
-                                    background: 'rgba(255, 255, 255, 0.025)',
+                                    background: isDark ? 'rgba(255, 255, 255, 0.025)' : 'rgba(0, 0, 0, 0.02)',
                                     borderRadius: '12px',
-                                    borderLeft: `4px solid ${project.accent}`,
-                                    border: '1px solid rgba(255, 255, 255, 0.05)',
+                                    border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}`,
+                                    borderLeft: `4px solid ${ACCENT_PRIMARY}`,
                                     borderLeftWidth: '4px',
                                 }}
                             >
-                                <Typography sx={{ color: '#ffffff', fontSize: '0.9rem', fontWeight: 600 }}>
-                                    My Role & Key Contributions: <span style={{ color: '#c4c4d5', fontWeight: 400 }}>{project.responsibilities}</span>
+                                <Typography sx={{ color: theme.palette.text.primary, fontSize: '0.9rem', fontWeight: 600 }}>
+                                    My Role & Key Contributions: <span style={{ color: theme.palette.text.secondary, fontWeight: 400 }}>{project.responsibilities}</span>
                                 </Typography>
                             </Box>
                         </SpotlightCard>
@@ -198,4 +200,3 @@ export default function Projects() {
         </Box>
     );
 }
-

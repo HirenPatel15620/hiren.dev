@@ -1,12 +1,16 @@
 
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
 import TextType from './animations/TextType';
 import SpotlightButton from './animations/SpotlightButton';
+import SpotlightCard from './animations/SpotlightCard';
+import { ACCENT_GRADIENT, ACCENT_PRIMARY } from '../theme/theme';
 
 export default function Hero() {
     const [backgroundY, setBackgroundY] = useState(0);
     const [imgError, setImgError] = useState(false);
+    const theme = useTheme();
+    const isDark = theme.palette.mode === 'dark';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -28,8 +32,9 @@ export default function Hero() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 overflow: 'hidden',
-                background: '#000000',
+                background: theme.palette.background.default,
                 padding: { xs: '6rem 0 3rem 0', md: 0 },
+                transition: 'background 0.4s ease',
             }}
         >
 
@@ -81,14 +86,14 @@ export default function Hero() {
                             gap: '0.6rem',
                             padding: '0.45rem 1.1rem',
                             borderRadius: '50px',
-                            background: 'rgba(99, 102, 241, 0.08)',
-                            border: '1px solid rgba(99, 102, 241, 0.25)',
-                            color: '#a5b4fc',
+                            background: isDark ? 'rgba(102, 126, 234, 0.08)' : 'rgba(102, 126, 234, 0.06)',
+                            border: `1px solid ${isDark ? 'rgba(102, 126, 234, 0.25)' : 'rgba(102, 126, 234, 0.3)'}`,
+                            color: isDark ? '#a5b4fc' : ACCENT_PRIMARY,
                             fontSize: '0.85rem',
                             fontWeight: 600,
                             marginBottom: '1.75rem',
                             backdropFilter: 'blur(10px)',
-                            boxShadow: '0 4px 15px rgba(99, 102, 241, 0.1)',
+                            boxShadow: '0 4px 15px rgba(102, 126, 234, 0.1)',
                         }}
                     >
                         <Box
@@ -96,8 +101,8 @@ export default function Hero() {
                                 width: '8px',
                                 height: '8px',
                                 borderRadius: '50%',
-                                background: '#10b981',
-                                boxShadow: '0 0 10px #10b981',
+                                background: isDark ? '#a0a0a0' : '#666',
+                                boxShadow: isDark ? '0 0 10px rgba(160,160,160,0.5)' : '0 0 10px rgba(100,100,100,0.3)',
                                 animation: 'pulse-marker 2s ease-in-out infinite',
                             }}
                         />
@@ -111,7 +116,7 @@ export default function Hero() {
                             fontWeight: 300,
                             lineHeight: 1.25,
                             marginBottom: '1rem',
-                            color: '#ffffff',
+                            color: theme.palette.text.primary,
                             letterSpacing: '-0.5px',
                         }}
                     >
@@ -122,7 +127,7 @@ export default function Hero() {
                         variant="h2"
                         sx={{
                             fontSize: { xs: '1.5rem', sm: '1.9rem', md: '2.1rem' },
-                            color: 'rgba(255, 255, 255, 0.7)',
+                            color: theme.palette.text.secondary,
                             marginBottom: { xs: '2rem', md: '2.5rem' },
                             fontWeight: 400,
                             letterSpacing: '0.5px',
@@ -154,17 +159,17 @@ export default function Hero() {
                             className="cursor-target"
                             href="#portfolio"
                             sx={{
-                                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
+                                background: ACCENT_GRADIENT,
                                 padding: '0.85rem 2rem',
                                 color: '#ffffff',
                                 fontWeight: 700,
                                 border: 'none',
-                                boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
+                                boxShadow: '0 4px 20px rgba(102, 126, 234, 0.4)',
                                 width: { xs: '100%', sm: 'auto' },
                                 textAlign: 'center',
                                 '&:hover': {
                                     transform: 'translateY(-2px)',
-                                    boxShadow: '0 8px 25px rgba(99, 102, 241, 0.6)',
+                                    boxShadow: '0 8px 25px rgba(102, 126, 234, 0.6)',
                                 }
                             }}
                         >
@@ -175,15 +180,15 @@ export default function Hero() {
                             href="#about"
                             sx={{
                                 padding: '0.85rem 1.8rem',
-                                background: 'rgba(255, 255, 255, 0.03)',
-                                border: '1px solid rgba(255, 255, 255, 0.12)',
-                                color: '#e2e8f0',
+                                background: isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 0, 0, 0.03)',
+                                border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'}`,
+                                color: theme.palette.text.primary,
                                 fontWeight: 600,
                                 width: { xs: '100%', sm: 'auto' },
                                 textAlign: 'center',
                                 '&:hover': {
-                                    borderColor: '#6366f1',
-                                    background: 'rgba(99, 102, 241, 0.1)',
+                                    borderColor: ACCENT_PRIMARY,
+                                    background: 'rgba(102, 126, 234, 0.1)',
                                 }
                             }}
                         >
@@ -196,16 +201,16 @@ export default function Hero() {
                             className="cursor-target"
                             sx={{
                                 padding: '0.85rem 1.8rem',
-                                border: '1px solid rgba(6, 182, 212, 0.3)',
-                                background: 'rgba(6, 182, 212, 0.05)',
-                                color: '#06b6d4',
+                                border: `1px solid ${isDark ? 'rgba(160, 160, 160, 0.3)' : 'rgba(100, 100, 100, 0.3)'}`,
+                                background: isDark ? 'rgba(160, 160, 160, 0.05)' : 'rgba(100, 100, 100, 0.05)',
+                                color: theme.palette.text.secondary,
                                 fontWeight: 600,
                                 width: { xs: '100%', sm: 'auto' },
                                 textAlign: 'center',
                                 '&:hover': {
-                                    borderColor: '#06b6d4',
-                                    background: 'rgba(6, 182, 212, 0.15)',
-                                    boxShadow: '0 0 15px rgba(6, 182, 212, 0.3)',
+                                    borderColor: theme.palette.text.primary,
+                                    background: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)',
+                                    boxShadow: isDark ? '0 0 15px rgba(255,255,255,0.1)' : '0 0 15px rgba(0,0,0,0.08)',
                                 }
                             }}
                         >
@@ -218,11 +223,10 @@ export default function Hero() {
                     className="hero-image"
                     sx={{
                         position: { xs: 'relative', md: 'absolute' },
-                        right: { xs: 0, md: '3%' },
-                        top: 0,
+                        right: { xs: 0, md: '2%' },
                         bottom: 0,
-                        width: { xs: '100%', md: '50%' },
-                        height: { xs: '380px', sm: '460px', md: '100vh' },
+                        width: { xs: '100%', md: '48%' },
+                        height: { xs: '450px', sm: '550px', md: '92vh' },
                         display: 'flex',
                         alignItems: 'flex-end',
                         justifyContent: 'center',
@@ -232,33 +236,21 @@ export default function Hero() {
                     }}
                 >
                     <Box
-                        className="image-wrapper"
+                        component="img"
+                        src={imgError ? "/images/avatar-fallback.png" : "/images/hero-profile-transparent.png"}
+                        onError={() => setImgError(true)}
+                        alt="Hiren Patel - Software Engineer"
                         sx={{
-                            position: 'relative',
-                            width: '100%',
-                            height: '100%',
-                            display: 'flex',
-                            alignItems: 'flex-end',
-                            justifyContent: 'center',
-                            overflow: 'hidden',
+                            maxHeight: '100%',
+                            maxWidth: '100%',
+                            width: 'auto',
+                            height: 'auto',
+                            objectFit: 'contain',
+                            objectPosition: 'center bottom',
+                            padding: 0,
+                            filter: isDark ? 'drop-shadow(0 0 30px rgba(102, 126, 234, 0.15))' : 'drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15))'
                         }}
-                    >
-                        <Box
-                            component="img"
-                            src={imgError ? "/images/avatar-fallback.png" : "/images/hero-profile.png"}
-                            onError={() => setImgError(true)}
-                            alt="Hiren Patel - Software Engineer"
-                            sx={{
-                                maxHeight: { xs: '100%', md: '95vh' },
-                                maxWidth: '100%',
-                                width: 'auto',
-                                height: 'auto',
-                                objectFit: 'contain',
-                                objectPosition: 'center bottom',
-                                padding: 0,
-                            }}
-                        />
-                    </Box>
+                    />
                 </Box>
 
                 <Box
@@ -270,12 +262,12 @@ export default function Hero() {
                         bottom: '30px',
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        color: '#6366f1',
+                        color: ACCENT_PRIMARY,
                         zIndex: 3,
                         cursor: 'pointer',
                         animation: 'bounce 2s ease-in-out infinite',
                         '&:hover': {
-                            color: '#8b5cf6',
+                            color: theme.palette.text.primary,
                             transform: 'translateX(-50%) scale(1.1)',
                         },
                         display: { xs: 'none', md: 'block' }
@@ -289,4 +281,3 @@ export default function Hero() {
         </Box>
     );
 }
-

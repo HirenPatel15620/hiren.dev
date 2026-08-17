@@ -1,7 +1,8 @@
 
-import { Box, Container, Typography, Grid, Button, Link, SvgIcon } from '@mui/material';
+import { Box, Container, Typography, Grid, Button, Link, SvgIcon, useTheme } from '@mui/material';
 import type { SvgIconProps } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import { ACCENT_PRIMARY, ACCENT_GRADIENT } from '../theme/theme';
 
 const LocationIcon = (props: SvgIconProps) => (
     <SvgIcon viewBox="0 0 24 24" {...props}>
@@ -22,14 +23,20 @@ const SendIcon = (props: SvgIconProps) => (
 );
 
 export default function Contact() {
+    const theme = useTheme();
+    const isDark = theme.palette.mode === 'dark';
+
     return (
         <Box
             id="contact"
             component="section"
             sx={{
-                background: 'linear-gradient(180deg, #0b0a1a 0%, #110e28 100%)',
+                background: isDark
+                    ? 'linear-gradient(180deg, #0a0a0a 0%, #060606 100%)'
+                    : 'linear-gradient(180deg, #efefef 0%, #f5f5f7 100%)',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
+                transition: 'background 0.4s ease',
             }}
         >
             <Container maxWidth="lg">
@@ -42,11 +49,12 @@ export default function Contact() {
                             fontWeight: 700,
                             marginBottom: '1rem',
                             letterSpacing: '-0.02em',
+                            color: theme.palette.text.primary,
                         }}
                     >
                         Get In <span className="text-gradient">Touch</span>
                     </Typography>
-                    <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: '#b4b4c5' }}>
+                    <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: theme.palette.text.secondary }}>
                         Interested in collaborating or discussing new software projects? Let's connect!
                     </Typography>
                 </Box>
@@ -56,14 +64,14 @@ export default function Contact() {
                     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <SpotlightCard
                             className="cursor-target"
-                            spotlightColor="rgba(99, 102, 241, 0.2)"
+                            spotlightColor="rgba(102, 126, 234, 0.15)"
                             sx={{
-                                background: 'rgba(18, 18, 32, 0.65)',
+                                background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '2rem 1.5rem', sm: '2.5rem 1.75rem' },
                                 borderRadius: '20px',
                                 textAlign: 'center',
                                 backdropFilter: 'blur(12px)',
-                                border: '1px solid rgba(255, 255, 255, 0.07)',
+                                border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)'}`,
                                 transition: 'all 0.35s ease',
                                 height: '100%',
                                 display: 'flex',
@@ -72,8 +80,8 @@ export default function Contact() {
                                 justifyContent: 'center',
                                 '&:hover': {
                                     transform: 'translateY(-6px)',
-                                    borderColor: '#6366f1',
-                                    boxShadow: '0 12px 30px -10px rgba(99, 102, 241, 0.4)',
+                                    borderColor: ACCENT_PRIMARY,
+                                    boxShadow: '0 12px 30px -10px rgba(102, 126, 234, 0.2)',
                                 }
                             }}
                         >
@@ -85,20 +93,22 @@ export default function Contact() {
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    background: 'radial-gradient(circle at top left, rgba(99, 102, 241, 0.25), transparent)',
-                                    border: '1px solid rgba(99, 102, 241, 0.4)',
-                                    color: '#6366f1',
+                                    background: isDark
+                                        ? 'radial-gradient(circle at top left, rgba(102, 126, 234, 0.2), transparent)'
+                                        : 'radial-gradient(circle at top left, rgba(102, 126, 234, 0.15), transparent)',
+                                    border: `1px solid ${ACCENT_PRIMARY}60`,
+                                    color: ACCENT_PRIMARY,
                                     marginBottom: '1.25rem',
-                                    boxShadow: '0 4px 15px rgba(99, 102, 241, 0.2)',
+                                    boxShadow: '0 4px 15px rgba(102, 126, 234, 0.15)',
                                     flexShrink: 0,
                                 }}
                             >
                                 <LocationIcon sx={{ fontSize: '1.8rem', display: 'block' }} />
                             </Box>
-                            <Typography variant="h3" sx={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.4rem', color: '#ffffff' }}>
+                            <Typography variant="h3" sx={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.4rem', color: theme.palette.text.primary }}>
                                 Location
                             </Typography>
-                            <Typography sx={{ color: '#a0a0be', fontSize: '0.92rem' }}>
+                            <Typography sx={{ color: theme.palette.text.secondary, fontSize: '0.92rem' }}>
                                 Ahmedabad, India
                             </Typography>
                         </SpotlightCard>
@@ -108,14 +118,14 @@ export default function Contact() {
                     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <SpotlightCard
                             className="cursor-target"
-                            spotlightColor="rgba(139, 92, 246, 0.2)"
+                            spotlightColor="rgba(118, 75, 162, 0.15)"
                             sx={{
-                                background: 'rgba(18, 18, 32, 0.65)',
+                                background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '2rem 1.5rem', sm: '2.5rem 1.75rem' },
                                 borderRadius: '20px',
                                 textAlign: 'center',
                                 backdropFilter: 'blur(12px)',
-                                border: '1px solid rgba(255, 255, 255, 0.07)',
+                                border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)'}`,
                                 transition: 'all 0.35s ease',
                                 height: '100%',
                                 display: 'flex',
@@ -124,8 +134,8 @@ export default function Contact() {
                                 justifyContent: 'center',
                                 '&:hover': {
                                     transform: 'translateY(-6px)',
-                                    borderColor: '#8b5cf6',
-                                    boxShadow: '0 12px 30px -10px rgba(139, 92, 246, 0.4)',
+                                    borderColor: ACCENT_PRIMARY,
+                                    boxShadow: '0 12px 30px -10px rgba(102, 126, 234, 0.2)',
                                 }
                             }}
                         >
@@ -137,27 +147,29 @@ export default function Contact() {
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    background: 'radial-gradient(circle at top left, rgba(139, 92, 246, 0.25), transparent)',
-                                    border: '1px solid rgba(139, 92, 246, 0.4)',
-                                    color: '#8b5cf6',
+                                    background: isDark
+                                        ? 'radial-gradient(circle at top left, rgba(118, 75, 162, 0.2), transparent)'
+                                        : 'radial-gradient(circle at top left, rgba(118, 75, 162, 0.15), transparent)',
+                                    border: '1px solid rgba(118, 75, 162, 0.4)',
+                                    color: '#764ba2',
                                     marginBottom: '1.25rem',
-                                    boxShadow: '0 4px 15px rgba(139, 92, 246, 0.2)',
+                                    boxShadow: '0 4px 15px rgba(118, 75, 162, 0.15)',
                                     flexShrink: 0,
                                 }}
                             >
                                 <LinkedInIcon sx={{ fontSize: '1.8rem', display: 'block' }} />
                             </Box>
-                            <Typography variant="h3" sx={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.4rem', color: '#ffffff' }}>
+                            <Typography variant="h3" sx={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.4rem', color: theme.palette.text.primary }}>
                                 LinkedIn
                             </Typography>
-                            <Typography sx={{ color: '#a0a0be', fontSize: '0.92rem' }}>
+                            <Typography sx={{ color: theme.palette.text.secondary, fontSize: '0.92rem' }}>
                                 <Link
                                     href="https://www.linkedin.com/in/hiren-patel-388a83236"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Visit Hiren Patel LinkedIn Profile"
                                     sx={{
-                                        color: '#06b6d4',
+                                        color: ACCENT_PRIMARY,
                                         textDecoration: 'none',
                                         fontWeight: 500,
                                         '&:hover': { textDecoration: 'underline' }
@@ -172,13 +184,13 @@ export default function Contact() {
                     {/* Work Together CTA Card */}
                     <Grid size={{ xs: 12, md: 4 }}>
                         <SpotlightCard
-                            spotlightColor="rgba(6, 182, 212, 0.2)"
+                            spotlightColor="rgba(102, 126, 234, 0.15)"
                             sx={{
-                                background: 'rgba(18, 18, 32, 0.65)',
+                                background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '2rem 1.5rem', sm: '2.5rem 1.75rem' },
                                 borderRadius: '20px',
                                 backdropFilter: 'blur(12px)',
-                                border: '1px solid rgba(255, 255, 255, 0.07)',
+                                border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)'}`,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
@@ -195,17 +207,19 @@ export default function Contact() {
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    background: 'radial-gradient(circle at top left, rgba(6, 182, 212, 0.25), transparent)',
-                                    border: '1px solid rgba(6, 182, 212, 0.4)',
-                                    color: '#06b6d4',
+                                    background: isDark
+                                        ? 'radial-gradient(circle at top left, rgba(102, 126, 234, 0.2), transparent)'
+                                        : 'radial-gradient(circle at top left, rgba(102, 126, 234, 0.15), transparent)',
+                                    border: `1px solid ${ACCENT_PRIMARY}60`,
+                                    color: ACCENT_PRIMARY,
                                     marginBottom: '1.25rem',
-                                    boxShadow: '0 4px 15px rgba(6, 182, 212, 0.2)',
+                                    boxShadow: '0 4px 15px rgba(102, 126, 234, 0.15)',
                                     flexShrink: 0,
                                 }}
                             >
                                 <SendIcon sx={{ fontSize: '1.8rem', display: 'block' }} />
                             </Box>
-                            <Typography variant="h3" sx={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.4rem', color: '#ffffff' }}>
+                            <Typography variant="h3" sx={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.4rem', color: theme.palette.text.primary }}>
                                 Ready to work together?
                             </Typography>
                             <Button
@@ -214,17 +228,18 @@ export default function Contact() {
                                 aria-label="Send an email to Hiren Patel"
                                 className="cursor-target"
                                 sx={{
-                                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
+                                    background: ACCENT_GRADIENT,
                                     borderRadius: '50px',
                                     padding: '0.6rem 1.4rem',
                                     fontWeight: 700,
                                     fontSize: '0.85rem',
                                     textTransform: 'none',
                                     marginTop: '0.4rem',
-                                    boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
+                                    color: '#ffffff',
+                                    boxShadow: '0 4px 20px rgba(102, 126, 234, 0.4)',
                                     '&:hover': {
                                         transform: 'translateY(-2px)',
-                                        boxShadow: '0 8px 25px rgba(99, 102, 241, 0.6)',
+                                        boxShadow: '0 8px 25px rgba(102, 126, 234, 0.6)',
                                     }
                                 }}
                             >
@@ -237,4 +252,3 @@ export default function Contact() {
         </Box>
     );
 }
-
