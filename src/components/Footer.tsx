@@ -1,4 +1,5 @@
-import { Box, Container, Typography, Link, IconButton, SvgIcon } from "@mui/material";
+import { Box, Container, Typography, Link, IconButton, SvgIcon, useTheme } from "@mui/material";
+import { ACCENT_PRIMARY } from '../theme/theme';
 
 const ArrowUpIcon = (props: any) => (
   <SvgIcon {...props}>
@@ -7,6 +8,9 @@ const ArrowUpIcon = (props: any) => (
 );
 
 export default function Footer() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -18,10 +22,11 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
-        background: "#07070b",
+        background: isDark ? "#050505" : "#f0f0f2",
         padding: { xs: "3rem 0 2rem 0", md: "4rem 0 2.5rem 0" },
-        borderTop: "1px solid rgba(255, 255, 255, 0.07)",
+        borderTop: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)'}`,
         position: "relative",
+        transition: 'background 0.4s ease',
       }}
     >
       <Container maxWidth="lg">
@@ -42,13 +47,13 @@ export default function Footer() {
               sx={{
                 fontSize: "1.6rem",
                 fontWeight: 800,
-                color: "#ffffff",
+                color: theme.palette.text.primary,
                 marginBottom: "0.25rem",
               }}
             >
               Hiren <span className="text-gradient">Patel</span>
             </Typography>
-            <Typography sx={{ color: "#8b8ba7", fontSize: "0.88rem" }}>
+            <Typography sx={{ color: theme.palette.text.secondary, fontSize: "0.88rem" }}>
               Software Engineer — .NET Core & React.js Specialist
             </Typography>
           </Box>
@@ -75,13 +80,13 @@ export default function Footer() {
                 href={link.href}
                 className="cursor-target"
                 sx={{
-                  color: "#a0a0be",
+                  color: theme.palette.text.secondary,
                   textDecoration: "none",
                   fontSize: "0.9rem",
                   fontWeight: 500,
                   transition: "all 0.25s ease",
                   "&:hover": {
-                    color: "#6366f1",
+                    color: ACCENT_PRIMARY,
                   }
                 }}
               >
@@ -96,15 +101,15 @@ export default function Footer() {
             className="cursor-target"
             aria-label="scroll to top"
             sx={{
-              background: "rgba(99, 102, 241, 0.1)",
-              border: "1px solid rgba(99, 102, 241, 0.3)",
-              color: "#6366f1",
+              background: "rgba(102, 126, 234, 0.1)",
+              border: `1px solid ${ACCENT_PRIMARY}50`,
+              color: ACCENT_PRIMARY,
               transition: "all 0.3s ease",
               "&:hover": {
-                background: "#6366f1",
+                background: ACCENT_PRIMARY,
                 color: "#ffffff",
                 transform: "translateY(-4px)",
-                boxShadow: "0 6px 20px rgba(99, 102, 241, 0.4)",
+                boxShadow: "0 6px 20px rgba(102, 126, 234, 0.4)",
               }
             }}
           >
@@ -114,15 +119,15 @@ export default function Footer() {
 
         <Box
           sx={{
-            borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+            borderTop: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}`,
             paddingTop: "1.75rem",
             textAlign: "center",
           }}
         >
-          <Typography sx={{ color: "#7a7a8c", fontSize: "0.85rem", marginBottom: "0.5rem" }}>
+          <Typography sx={{ color: theme.palette.text.secondary, fontSize: "0.85rem", marginBottom: "0.5rem", opacity: 0.7 }}>
             &copy; 2026 Hiren Patel. All rights reserved.
           </Typography>
-          <Typography sx={{ color: "#5a5a6c", fontSize: "0.82rem", fontStyle: "italic" }}>
+          <Typography sx={{ color: theme.palette.text.secondary, fontSize: "0.82rem", fontStyle: "italic", opacity: 0.5 }}>
             "Capable to explore, quickly learn, and master newer business domains and technology."
           </Typography>
         </Box>
@@ -130,4 +135,3 @@ export default function Footer() {
     </Box>
   );
 }
-

@@ -1,7 +1,8 @@
 
-import { Box, Container, Typography, Chip } from '@mui/material';
+import { Box, Container, Typography, Chip, useTheme } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
 import { getExperienceYears } from '../utils/experience';
+import { ACCENT_PRIMARY, ACCENT_GRADIENT } from '../theme/theme';
 
 const experienceData = [
     {
@@ -9,8 +10,6 @@ const experienceData = [
         company: 'Tatasoft',
         location: 'Ahmedabad, India',
         period: `1st Jul 2023 – PRESENT (${getExperienceYears('2023-07-01')}+ YEARS)`,
-        accent: '#6366f1',
-        glowColor: 'rgba(99, 102, 241, 0.25)',
         highlights: [
             'Architected and implemented high-throughput REST APIs in .NET Core for enterprise FX trading & risk management.',
             'Engineered complex SQL stored procedures, Entity Framework LINQ queries, and optimized database indexing.',
@@ -24,8 +23,6 @@ const experienceData = [
         company: 'Tatasoft',
         location: 'Ahmedabad, India',
         period: '25th Jan 2023 – 30th Jun 2023 (6 MONTHS)',
-        accent: '#ec4899',
-        glowColor: 'rgba(236, 72, 153, 0.25)',
         highlights: [
             'Completed intensive full-stack development training on C#, ASP.NET Core Web APIs, and React fundamentals.',
             'Assisted senior engineers in bug fixes, code refactoring, and database schema updates.',
@@ -36,14 +33,20 @@ const experienceData = [
 ];
 
 export default function Experience() {
+    const theme = useTheme();
+    const isDark = theme.palette.mode === 'dark';
+
     return (
         <Box
             id="experience"
             component="section"
             sx={{
-                background: 'linear-gradient(180deg, #070815 0%, #0a0b1d 100%)',
+                background: isDark
+                    ? 'linear-gradient(180deg, #050505 0%, #080808 100%)'
+                    : 'linear-gradient(180deg, #f5f5f7 0%, #efefef 100%)',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
+                transition: 'background 0.4s ease',
             }}
         >
             <Container maxWidth="lg">
@@ -56,11 +59,12 @@ export default function Experience() {
                             fontWeight: 700,
                             marginBottom: '1rem',
                             letterSpacing: '-0.02em',
+                            color: theme.palette.text.primary,
                         }}
                     >
                         Professional <span className="text-gradient">Experience</span>
                     </Typography>
-                    <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: '#b4b4c5' }}>
+                    <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: theme.palette.text.secondary }}>
                         My career path and key contributions in software engineering
                     </Typography>
                 </Box>
@@ -80,8 +84,8 @@ export default function Experience() {
                             bottom: '10px',
                             width: '3px',
                             borderRadius: '3px',
-                            background: 'linear-gradient(180deg, #6366f1 0%, #06b6d4 50%, #ec4899 100%)',
-                            boxShadow: '0 0 12px rgba(99, 102, 241, 0.4)',
+                            background: ACCENT_GRADIENT,
+                            boxShadow: '0 0 12px rgba(102, 126, 234, 0.3)',
                         }
                     }}
                 >
@@ -96,8 +100,8 @@ export default function Experience() {
                                     width: '18px',
                                     height: '18px',
                                     borderRadius: '50%',
-                                    background: item.accent,
-                                    boxShadow: `0 0 0 4px ${item.glowColor}`,
+                                    background: ACCENT_PRIMARY,
+                                    boxShadow: `0 0 0 4px rgba(102, 126, 234, 0.25)`,
                                     animation: 'pulse-marker 2s ease-in-out infinite',
                                     zIndex: 2,
                                 }}
@@ -105,29 +109,29 @@ export default function Experience() {
 
                             <SpotlightCard
                                 className="cursor-target"
-                                spotlightColor={item.glowColor}
+                                spotlightColor="rgba(102, 126, 234, 0.12)"
                                 sx={{
-                                    background: 'rgba(18, 18, 32, 0.65)',
+                                    background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                     padding: { xs: '1.75rem', sm: '2.25rem', md: '2.5rem' },
                                     borderRadius: '20px',
                                     backdropFilter: 'blur(12px)',
-                                    border: '1px solid rgba(255, 255, 255, 0.07)',
+                                    border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.06)'}`,
                                     transition: 'all 0.35s ease',
                                     '&:hover': {
                                         transform: 'translateX(8px)',
-                                        borderColor: item.accent,
-                                        boxShadow: `0 12px 30px -10px ${item.glowColor}`,
+                                        borderColor: ACCENT_PRIMARY,
+                                        boxShadow: '0 12px 30px -10px rgba(102, 126, 234, 0.2)',
                                     }
                                 }}
                             >
                                 {/* Role Header */}
                                 <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', mb: 2 }}>
                                     <Box>
-                                        <Typography variant="h3" sx={{ color: '#ffffff', fontSize: { xs: '1.35rem', sm: '1.6rem' }, fontWeight: 700, mb: 0.5 }}>
+                                        <Typography variant="h3" sx={{ color: theme.palette.text.primary, fontSize: { xs: '1.35rem', sm: '1.6rem' }, fontWeight: 700, mb: 0.5 }}>
                                             {item.role}
                                         </Typography>
-                                        <Typography variant="h4" sx={{ color: '#06b6d4', fontSize: '1.05rem', fontWeight: 600 }}>
-                                            {item.company} <span style={{ color: '#a0a0be', fontWeight: 400 }}>— {item.location}</span>
+                                        <Typography variant="h4" sx={{ color: ACCENT_PRIMARY, fontSize: '1.05rem', fontWeight: 600 }}>
+                                            {item.company} <span style={{ color: theme.palette.text.secondary, fontWeight: 400 }}>— {item.location}</span>
                                         </Typography>
                                     </Box>
 
@@ -135,9 +139,9 @@ export default function Experience() {
                                         label={item.period}
                                         size="small"
                                         sx={{
-                                            backgroundColor: `rgba(${parseInt(item.accent.slice(1, 3), 16)}, ${parseInt(item.accent.slice(3, 5), 16)}, ${parseInt(item.accent.slice(5, 7), 16)}, 0.12)`,
-                                            border: `1px solid ${item.accent}40`,
-                                            color: item.accent,
+                                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                                            border: `1px solid ${ACCENT_PRIMARY}40`,
+                                            color: ACCENT_PRIMARY,
                                             fontSize: '0.78rem',
                                             fontWeight: 700,
                                             padding: '0.3rem 0.5rem',
@@ -156,7 +160,7 @@ export default function Experience() {
                                                 display: 'flex',
                                                 alignItems: 'flex-start',
                                                 gap: '0.75rem',
-                                                color: '#c4c4d5',
+                                                color: theme.palette.text.secondary,
                                                 fontSize: '0.94rem',
                                                 lineHeight: 1.7,
                                                 marginBottom: '0.65rem',
@@ -165,7 +169,7 @@ export default function Experience() {
                                             <Box
                                                 component="span"
                                                 sx={{
-                                                    color: item.accent,
+                                                    color: ACCENT_PRIMARY,
                                                     fontWeight: 700,
                                                     lineHeight: 1.5,
                                                     fontSize: '1rem',
@@ -186,12 +190,12 @@ export default function Experience() {
                                             component="span"
                                             sx={{
                                                 padding: '0.35rem 0.8rem',
-                                                background: 'rgba(255, 255, 255, 0.03)',
-                                                border: '1px solid rgba(255, 255, 255, 0.08)',
+                                                background: isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 0, 0, 0.03)',
+                                                border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)'}`,
                                                 borderRadius: '8px',
                                                 fontSize: '0.8rem',
                                                 fontWeight: 500,
-                                                color: '#e2e8f0',
+                                                color: theme.palette.text.primary,
                                             }}
                                         >
                                             {tech}
@@ -206,4 +210,3 @@ export default function Experience() {
         </Box>
     );
 }
-

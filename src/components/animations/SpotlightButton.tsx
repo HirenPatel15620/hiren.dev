@@ -1,6 +1,6 @@
 
 import React, { useRef, useState } from 'react';
-import { Button, Box } from '@mui/material';
+import { Button, Box, useTheme } from '@mui/material';
 import type { ButtonProps } from '@mui/material';
 
 interface SpotlightButtonProps extends ButtonProps {
@@ -14,6 +14,8 @@ const SpotlightButton: React.FC<SpotlightButtonProps> = ({ children, sx, ...prop
     const divRef = useRef<HTMLButtonElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [opacity, setOpacity] = useState(0);
+    const theme = useTheme();
+    const isDark = theme.palette.mode === 'dark';
 
     const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
         if (!divRef.current) return;
@@ -44,13 +46,12 @@ const SpotlightButton: React.FC<SpotlightButtonProps> = ({ children, sx, ...prop
                 overflow: 'hidden',
                 borderRadius: '8px',
                 transition: '0.2s ease',
-                background: '#1a1a1a', // Default dark bg
-                color: 'white',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: isDark ? '#1a1a1a' : '#f0f0f2',
+                color: theme.palette.text.primary,
+                border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
                 ...sx,
                 '&:hover': {
-                    // Standard hover effect is handled by spotlight, so we can mute this or keep it subtle
-                    background: '#1a1a1a',
+                    background: isDark ? '#1a1a1a' : '#f0f0f2',
                     ...sx && (sx as any)['&:hover'],
                 }
             }}
@@ -67,7 +68,7 @@ const SpotlightButton: React.FC<SpotlightButtonProps> = ({ children, sx, ...prop
                     opacity: opacity,
                     transition: 'opacity 0.2s',
                     zIndex: 0,
-                    background: `radial-gradient(circle at ${position.x}px ${position.y}px, rgba(99, 102, 241, 0.25), transparent 60%)`, // Spotlight color
+                    background: `radial-gradient(circle at ${position.x}px ${position.y}px, rgba(102, 126, 234, 0.25), transparent 60%)`,
                 }}
             />
             <Box sx={{ position: 'relative', zIndex: 1 }}>

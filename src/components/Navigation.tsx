@@ -17,6 +17,8 @@ import {
     useTheme,
     SvgIcon
 } from '@mui/material';
+import { useThemeMode } from '../context/ThemeContext';
+import { ACCENT_GRADIENT, ACCENT_PRIMARY } from '../theme/theme';
 
 const MenuIcon = (props: any) => (
     <SvgIcon {...props}>
@@ -27,6 +29,20 @@ const MenuIcon = (props: any) => (
 const CloseIcon = (props: any) => (
     <SvgIcon {...props}>
         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+    </SvgIcon>
+);
+
+// Sun icon for light mode
+const SunIcon = (props: any) => (
+    <SvgIcon {...props}>
+        <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z" />
+    </SvgIcon>
+);
+
+// Moon icon for dark mode
+const MoonIcon = (props: any) => (
+    <SvgIcon {...props}>
+        <path d="M9.5 2c-1.82 0-3.53.5-5 1.35 2.99 1.73 5 4.95 5 8.65s-2.01 6.92-5 8.65c1.47.85 3.18 1.35 5 1.35 5.52 0 10-4.48 10-10S15.02 2 9.5 2z" />
     </SvgIcon>
 );
 
@@ -46,6 +62,8 @@ export default function Navigation() {
     const [activeSection, setActiveSection] = useState('home');
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const { mode, toggleTheme } = useThemeMode();
+    const isDark = mode === 'dark';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -99,14 +117,20 @@ export default function Navigation() {
         <AppBar
             position="fixed"
             sx={{
-                background: scrolled ? 'rgba(0, 0, 0, 0.92)' : 'rgba(0, 0, 0, 0.4)',
+                background: scrolled
+                    ? (isDark ? 'rgba(0, 0, 0, 0.92)' : 'rgba(245, 245, 247, 0.92)')
+                    : (isDark ? 'rgba(0, 0, 0, 0.4)' : 'rgba(245, 245, 247, 0.4)'),
                 backdropFilter: scrolled ? 'blur(24px)' : 'blur(8px)',
-                borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0.04)',
+                borderBottom: scrolled
+                    ? `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}`
+                    : `1px solid ${isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.03)'}`,
                 transition: 'all 0.35s ease-in-out',
                 transform: 'translateY(0)',
                 opacity: 1,
                 pointerEvents: 'auto',
-                boxShadow: scrolled ? '0 10px 30px -10px rgba(0, 0, 0, 0.8)' : 'none',
+                boxShadow: scrolled
+                    ? (isDark ? '0 10px 30px -10px rgba(0, 0, 0, 0.8)' : '0 10px 30px -10px rgba(0, 0, 0, 0.08)')
+                    : 'none',
                 padding: scrolled ? '0.5rem 0' : '0.8rem 0',
                 zIndex: 1100,
             }}
@@ -126,7 +150,7 @@ export default function Navigation() {
                             sx={{
                                 fontSize: { xs: '1.4rem', sm: '1.7rem' },
                                 fontWeight: 800,
-                                color: '#ffffff',
+                                color: theme.palette.text.primary,
                                 letterSpacing: '-0.5px',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -139,7 +163,7 @@ export default function Navigation() {
 
                     {/* Desktop Navigation Links */}
                     {!isMobile ? (
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '2.5rem' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
                             <Box component="ul" sx={{ display: 'flex', gap: '1.75rem', listStyle: 'none', margin: 0, padding: 0 }}>
                                 {navItems.map((item) => {
                                     const isActive = activeSection === item.href.substring(1);
@@ -154,7 +178,9 @@ export default function Navigation() {
                                                     fontWeight: isActive ? 600 : 500,
                                                     fontSize: '0.92rem',
                                                     padding: '0.5rem 0',
-                                                    color: isActive ? '#ffffff' : '#a0a0be',
+                                                    color: isActive
+                                                        ? theme.palette.text.primary
+                                                        : theme.palette.text.secondary,
                                                     textDecoration: 'none',
                                                     transition: 'all 0.25s ease',
                                                     '&::after': {
@@ -165,11 +191,11 @@ export default function Navigation() {
                                                         width: isActive ? '100%' : '0',
                                                         height: '2px',
                                                         borderRadius: '2px',
-                                                        background: 'linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)',
+                                                        background: ACCENT_GRADIENT,
                                                         transition: 'width 0.3s ease',
                                                     },
                                                     '&:hover': {
-                                                        color: '#ffffff',
+                                                        color: theme.palette.text.primary,
                                                         '&::after': {
                                                             width: '100%',
                                                         }
@@ -183,6 +209,29 @@ export default function Navigation() {
                                 })}
                             </Box>
 
+                            {/* Theme Toggle Button */}
+                            <IconButton
+                                onClick={toggleTheme}
+                                className="cursor-target"
+                                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                                sx={{
+                                    color: theme.palette.text.secondary,
+                                    border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'}`,
+                                    borderRadius: '12px',
+                                    width: '40px',
+                                    height: '40px',
+                                    transition: 'all 0.3s ease',
+                                    '&:hover': {
+                                        color: ACCENT_PRIMARY,
+                                        borderColor: ACCENT_PRIMARY,
+                                        background: isDark ? 'rgba(102, 126, 234, 0.1)' : 'rgba(102, 126, 234, 0.08)',
+                                        transform: 'rotate(20deg)',
+                                    }
+                                }}
+                            >
+                                {isDark ? <SunIcon sx={{ fontSize: '1.2rem' }} /> : <MoonIcon sx={{ fontSize: '1.2rem' }} />}
+                            </IconButton>
+
                             <Button
                                 component="a"
                                 href="#contact"
@@ -195,16 +244,16 @@ export default function Navigation() {
                                     padding: '0.45rem 1.25rem',
                                     fontSize: '0.85rem',
                                     fontWeight: 600,
-                                    color: '#ffffff',
-                                    borderColor: 'rgba(99, 102, 241, 0.4)',
-                                    background: 'rgba(99, 102, 241, 0.08)',
+                                    color: theme.palette.text.primary,
+                                    borderColor: isDark ? 'rgba(102, 126, 234, 0.4)' : 'rgba(102, 126, 234, 0.5)',
+                                    background: isDark ? 'rgba(102, 126, 234, 0.08)' : 'rgba(102, 126, 234, 0.06)',
                                     backdropFilter: 'blur(8px)',
                                     transition: 'all 0.3s ease',
                                     textTransform: 'none',
                                     '&:hover': {
-                                        borderColor: '#6366f1',
-                                        background: 'rgba(99, 102, 241, 0.2)',
-                                        boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)',
+                                        borderColor: ACCENT_PRIMARY,
+                                        background: isDark ? 'rgba(102, 126, 234, 0.2)' : 'rgba(102, 126, 234, 0.12)',
+                                        boxShadow: '0 0 20px rgba(102, 126, 234, 0.3)',
                                         transform: 'translateY(-2px)',
                                     }
                                 }}
@@ -213,15 +262,29 @@ export default function Navigation() {
                             </Button>
                         </Box>
                     ) : (
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open navigation menu"
-                            edge="start"
-                            onClick={handleDrawerToggle}
-                            className="hamburger"
-                        >
-                            <MenuIcon sx={{ fontSize: '2rem' }} />
-                        </IconButton>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            {/* Mobile theme toggle */}
+                            <IconButton
+                                onClick={toggleTheme}
+                                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                                sx={{
+                                    color: theme.palette.text.secondary,
+                                    transition: 'all 0.3s ease',
+                                }}
+                            >
+                                {isDark ? <SunIcon sx={{ fontSize: '1.3rem' }} /> : <MoonIcon sx={{ fontSize: '1.3rem' }} />}
+                            </IconButton>
+                            <IconButton
+                                color="inherit"
+                                aria-label="Open navigation menu"
+                                edge="start"
+                                onClick={handleDrawerToggle}
+                                className="hamburger"
+                                sx={{ color: theme.palette.text.primary }}
+                            >
+                                <MenuIcon sx={{ fontSize: '2rem' }} />
+                            </IconButton>
+                        </Box>
                     )}
                 </Toolbar>
             </Container>
@@ -238,18 +301,18 @@ export default function Navigation() {
                     '& .MuiDrawer-paper': {
                         boxSizing: 'border-box',
                         width: '280px',
-                        background: 'rgba(10, 10, 15, 0.96)',
+                        background: isDark ? 'rgba(10, 10, 15, 0.96)' : 'rgba(245, 245, 247, 0.96)',
                         backdropFilter: 'blur(24px)',
-                        borderLeft: '1px solid rgba(255, 255, 255, 0.08)',
+                        borderLeft: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)'}`,
                     },
                 }}
             >
                 <Box sx={{ p: 3 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                        <Typography variant="h6" sx={{ fontWeight: 700, color: '#ffffff' }}>
+                        <Typography variant="h6" sx={{ fontWeight: 700, color: theme.palette.text.primary }}>
                             Menu
                         </Typography>
-                        <IconButton onClick={handleDrawerToggle} aria-label="Close navigation menu" sx={{ color: 'white' }}>
+                        <IconButton onClick={handleDrawerToggle} aria-label="Close navigation menu" sx={{ color: theme.palette.text.primary }}>
                             <CloseIcon />
                         </IconButton>
                     </Box>
@@ -264,10 +327,12 @@ export default function Navigation() {
                                         padding: '0.85rem 1rem',
                                         borderRadius: '8px',
                                         fontSize: '1.05rem',
-                                        color: activeSection === item.href.substring(1) ? '#6366f1' : '#b4b4c5',
+                                        color: activeSection === item.href.substring(1) ? ACCENT_PRIMARY : theme.palette.text.secondary,
                                         fontWeight: activeSection === item.href.substring(1) ? 700 : 500,
                                         textDecoration: 'none',
-                                        background: activeSection === item.href.substring(1) ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
+                                        background: activeSection === item.href.substring(1)
+                                            ? 'rgba(102, 126, 234, 0.1)'
+                                            : 'transparent',
                                         display: 'block',
                                     }}
                                 >
@@ -287,7 +352,7 @@ export default function Navigation() {
                             marginTop: '2rem',
                             borderRadius: '50px',
                             padding: '0.75rem',
-                            background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)',
+                            background: ACCENT_GRADIENT,
                             fontWeight: 600,
                             textTransform: 'none',
                         }}
@@ -299,4 +364,3 @@ export default function Navigation() {
         </AppBar>
     );
 }
-
