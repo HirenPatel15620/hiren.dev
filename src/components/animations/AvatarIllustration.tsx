@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Box, useTheme } from '@mui/material';
 import { ACCENT_PRIMARY } from '../../theme/theme';
 

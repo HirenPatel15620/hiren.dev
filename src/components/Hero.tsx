@@ -3,7 +3,7 @@ import { Box, Typography, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
 import TextType from './animations/TextType';
 import SpotlightButton from './animations/SpotlightButton';
-import SpotlightCard from './animations/SpotlightCard';
+
 import { ACCENT_GRADIENT, ACCENT_PRIMARY } from '../theme/theme';
 
 export default function Hero() {
