@@ -1,6 +1,4 @@
-[![Header](Header.png "Header")](https://hiren-cm9.pages.dev/)
-
-# Hello, folks! <img src="./wave.gif" width="30px" height="30px" />
+# Hello, folks! <img src="./src/assets/wave.gif" width="30px" height="30px" />
 
 🔭 I’m working as a **Software Development Engineer**, building and maintaining production-grade software in a professional environment.<br>
 💻 Professional experience in **full-stack development**, primarily working with **React and .NET Core**.<br>
