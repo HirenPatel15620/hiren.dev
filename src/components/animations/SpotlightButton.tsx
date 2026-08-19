@@ -51,8 +51,8 @@ const SpotlightButton: React.FC<SpotlightButtonProps> = ({ children, sx, ...prop
                 border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
                 ...sx,
                 '&:hover': {
-                    background: isDark ? '#1a1a1a' : '#f0f0f2',
-                    ...sx && (sx as any)['&:hover'],
+                    background: (sx as any)?.background || (isDark ? '#1a1a1a' : '#f0f0f2'),
+                    ...((sx as any)?.['&:hover'] || {}),
                 }
             }}
             {...props}

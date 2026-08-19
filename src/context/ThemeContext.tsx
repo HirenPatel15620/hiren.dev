@@ -17,11 +17,7 @@ function getInitialMode(): ThemeMode {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === 'dark' || stored === 'light') return stored;
 
-    // Fall back to system preference
-    if (window.matchMedia?.('(prefers-color-scheme: light)').matches) {
-        return 'light';
-    }
-    return 'dark';
+    return 'light'; // Default to white/light mode
 }
 
 export function ThemeContextProvider({ children }: { children: ReactNode }) {

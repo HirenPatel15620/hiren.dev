@@ -7,7 +7,7 @@ import { ACCENT_PRIMARY, ACCENT_GRADIENT } from '../theme/theme';
 const statsData = [
     { value: `${getExperienceYears('2023-01-25')}+`, label: 'Years Experience' },
     { value: '3+', label: 'Enterprise Apps' },
-    { value: '8.4', label: 'B.E. Degree CGPA' },
+    { value: '8.4', suffix: ' (out of 10)', label: 'B.E. Degree CGPA' },
     { value: '100%', label: 'Quality & Clean Code' }
 ];
 
@@ -69,20 +69,34 @@ export default function About() {
                                     }
                                 }}
                             >
-                                <Typography
-                                    variant="h3"
-                                    sx={{
-                                        fontSize: { xs: '2rem', sm: '2.5rem' },
-                                        fontWeight: 800,
-                                        background: ACCENT_GRADIENT,
-                                        WebkitBackgroundClip: 'text',
-                                        WebkitTextFillColor: 'transparent',
-                                        backgroundClip: 'text',
-                                        marginBottom: '0.25rem',
-                                    }}
-                                >
-                                    {stat.value}
-                                </Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', marginBottom: '0.25rem' }}>
+                                    <Typography
+                                        variant="h3"
+                                        sx={{
+                                            fontSize: { xs: '2rem', sm: '2.5rem' },
+                                            fontWeight: 800,
+                                            background: ACCENT_GRADIENT,
+                                            WebkitBackgroundClip: 'text',
+                                            WebkitTextFillColor: 'transparent',
+                                            backgroundClip: 'text',
+                                        }}
+                                    >
+                                        {stat.value}
+                                    </Typography>
+                                    {stat.suffix && (
+                                        <Typography
+                                            component="span"
+                                            sx={{
+                                                fontSize: { xs: '0.9rem', sm: '1rem' },
+                                                fontWeight: 600,
+                                                color: theme.palette.text.secondary,
+                                                marginLeft: '6px',
+                                            }}
+                                        >
+                                            {stat.suffix}
+                                        </Typography>
+                                    )}
+                                </Box>
                                 <Typography
                                     sx={{
                                         fontSize: { xs: '0.8rem', sm: '0.9rem' },
@@ -221,7 +235,9 @@ export default function About() {
                                 </Typography>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', color: theme.palette.text.secondary, fontSize: '0.85rem' }}>
                                     <span>JULY 2019 – MAY 2023</span>
-                                    <span style={{ color: isDark ? '#c0c0c0' : '#333', fontWeight: 600 }}>CGPA: 8.4</span>
+                                    <span style={{ color: isDark ? '#c0c0c0' : '#333', fontWeight: 600 }}>
+                                        CGPA: 8.4 <span style={{ fontSize: '0.75rem', fontWeight: 500, color: theme.palette.text.secondary }}>(out of 10)</span>
+                                    </span>
                                 </Box>
                             </Box>
 
