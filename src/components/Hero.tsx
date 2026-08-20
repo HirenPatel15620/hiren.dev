@@ -158,6 +158,7 @@ export default function Hero() {
                         <SpotlightButton
                             className="cursor-target"
                             href="#portfolio"
+                            spotlightColor="rgba(236, 72, 153, 0.45)"
                             sx={{
                                 background: ACCENT_GRADIENT,
                                 padding: '0.85rem 2rem',
@@ -178,6 +179,7 @@ export default function Hero() {
                         <SpotlightButton
                             className="cursor-target"
                             href="#about"
+                            spotlightColor="rgba(16, 185, 129, 0.45)"
                             sx={{
                                 padding: '0.85rem 1.8rem',
                                 background: isDark ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 0, 0, 0.03)',
@@ -199,6 +201,7 @@ export default function Hero() {
                             href="/Hiren Patel.pdf"
                             target="_blank"
                             className="cursor-target"
+                            spotlightColor="rgba(245, 158, 11, 0.45)"
                             sx={{
                                 padding: '0.85rem 1.8rem',
                                 border: `1px solid ${isDark ? 'rgba(160, 160, 160, 0.3)' : 'rgba(100, 100, 100, 0.3)'}`,

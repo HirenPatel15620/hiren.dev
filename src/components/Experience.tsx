@@ -36,6 +36,11 @@ export default function Experience() {
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
 
+    const spotlightColors = [
+        'rgba(16, 185, 129, 0.15)',
+        'rgba(59, 130, 246, 0.15)'
+    ];
+
     return (
         <Box
             id="experience"
@@ -109,7 +114,7 @@ export default function Experience() {
 
                             <SpotlightCard
                                 className="cursor-target"
-                                spotlightColor="rgba(102, 126, 234, 0.12)"
+                                spotlightColor={spotlightColors[index % spotlightColors.length]}
                                 sx={{
                                     background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                     padding: { xs: '1.75rem', sm: '2.25rem', md: '2.5rem' },

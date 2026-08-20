@@ -7,13 +7,20 @@ import { ACCENT_PRIMARY, ACCENT_GRADIENT } from '../theme/theme';
 const statsData = [
     { value: `${getExperienceYears('2023-01-25')}+`, label: 'Years Experience' },
     { value: '3+', label: 'Enterprise Apps' },
-    { value: '8.4', label: 'B.E. Degree CGPA' },
+    { value: '8.4', suffix: ' (out of 10)', label: 'B.E. Degree CGPA' },
     { value: '100%', label: 'Quality & Clean Code' }
 ];
 
 export default function About() {
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
+
+    const statSpotlightColors = [
+        'rgba(236, 72, 153, 0.15)',
+        'rgba(16, 185, 129, 0.15)',
+        'rgba(245, 158, 11, 0.15)',
+        'rgba(59, 130, 246, 0.15)'
+    ];
 
     return (
         <Box
@@ -52,8 +59,9 @@ export default function About() {
                 <Grid container spacing={3} sx={{ marginBottom: { xs: '3rem', md: '4rem' } }}>
                     {statsData.map((stat, idx) => (
                         <Grid key={idx} size={{ xs: 6, sm: 3 }}>
-                            <Box
+                            <SpotlightCard
                                 className="cursor-target"
+                                spotlightColor={statSpotlightColors[idx % statSpotlightColors.length]}
                                 sx={{
                                     background: isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)',
                                     border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)'}`,
@@ -62,6 +70,7 @@ export default function About() {
                                     textAlign: 'center',
                                     backdropFilter: 'blur(10px)',
                                     transition: 'all 0.3s ease',
+                                    height: '100%',
                                     '&:hover': {
                                         transform: 'translateY(-4px)',
                                         borderColor: ACCENT_PRIMARY,
@@ -69,20 +78,34 @@ export default function About() {
                                     }
                                 }}
                             >
-                                <Typography
-                                    variant="h3"
-                                    sx={{
-                                        fontSize: { xs: '2rem', sm: '2.5rem' },
-                                        fontWeight: 800,
-                                        background: ACCENT_GRADIENT,
-                                        WebkitBackgroundClip: 'text',
-                                        WebkitTextFillColor: 'transparent',
-                                        backgroundClip: 'text',
-                                        marginBottom: '0.25rem',
-                                    }}
-                                >
-                                    {stat.value}
-                                </Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', marginBottom: '0.25rem' }}>
+                                    <Typography
+                                        variant="h3"
+                                        sx={{
+                                            fontSize: { xs: '2rem', sm: '2.5rem' },
+                                            fontWeight: 800,
+                                            background: ACCENT_GRADIENT,
+                                            WebkitBackgroundClip: 'text',
+                                            WebkitTextFillColor: 'transparent',
+                                            backgroundClip: 'text',
+                                        }}
+                                    >
+                                        {stat.value}
+                                    </Typography>
+                                    {stat.suffix && (
+                                        <Typography
+                                            component="span"
+                                            sx={{
+                                                fontSize: { xs: '0.9rem', sm: '1rem' },
+                                                fontWeight: 600,
+                                                color: theme.palette.text.secondary,
+                                                marginLeft: '6px',
+                                            }}
+                                        >
+                                            {stat.suffix}
+                                        </Typography>
+                                    )}
+                                </Box>
                                 <Typography
                                     sx={{
                                         fontSize: { xs: '0.8rem', sm: '0.9rem' },
@@ -92,7 +115,7 @@ export default function About() {
                                 >
                                     {stat.label}
                                 </Typography>
-                            </Box>
+                            </SpotlightCard>
                         </Grid>
                     ))}
                 </Grid>
@@ -103,7 +126,7 @@ export default function About() {
                     <Grid size={{ xs: 12, md: 6 }}>
                         <SpotlightCard
                             className="cursor-target"
-                            spotlightColor="rgba(102, 126, 234, 0.15)"
+                            spotlightColor="rgba(236, 72, 153, 0.15)"
                             sx={{
                                 background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '1.75rem', sm: '2.25rem', md: '2.5rem' },
@@ -174,7 +197,7 @@ export default function About() {
                     <Grid size={{ xs: 12, md: 6 }}>
                         <SpotlightCard
                             className="cursor-target"
-                            spotlightColor="rgba(118, 75, 162, 0.15)"
+                            spotlightColor="rgba(16, 185, 129, 0.15)"
                             sx={{
                                 background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '1.75rem', sm: '2.25rem', md: '2.5rem' },
@@ -221,7 +244,9 @@ export default function About() {
                                 </Typography>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', color: theme.palette.text.secondary, fontSize: '0.85rem' }}>
                                     <span>JULY 2019 – MAY 2023</span>
-                                    <span style={{ color: isDark ? '#c0c0c0' : '#333', fontWeight: 600 }}>CGPA: 8.4</span>
+                                    <span style={{ color: isDark ? '#c0c0c0' : '#333', fontWeight: 600 }}>
+                                        CGPA: 8.4 <span style={{ fontSize: '0.75rem', fontWeight: 500, color: theme.palette.text.secondary }}>(out of 10)</span>
+                                    </span>
                                 </Box>
                             </Box>
 

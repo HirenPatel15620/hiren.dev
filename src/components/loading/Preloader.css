@@ -4,8 +4,6 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #080808;
-  color: #ffffff;
   z-index: 99999;
   display: flex;
   flex-direction: column;
@@ -24,6 +22,49 @@
   visibility: hidden;
   transform: scale(1.02);
   pointer-events: none;
+}
+
+.preloader-overlay.dark {
+  background-color: #080808;
+  color: #ffffff;
+}
+
+.preloader-overlay.light {
+  background-color: #f5f5f7;
+  color: #111111;
+}
+
+/* Light mode overrides */
+.preloader-overlay.light .preloader-name {
+  color: rgba(0, 0, 0, 0.8);
+}
+.preloader-overlay.light .preloader-role {
+  color: rgba(0, 0, 0, 0.6);
+}
+.preloader-overlay.light .monogram-bg-path {
+  stroke: rgba(0, 0, 0, 0.15);
+}
+.preloader-overlay.light .monogram-draw-path {
+  stroke: rgba(0, 0, 0, 0.95);
+}
+.preloader-overlay.light .monogram-dot-static {
+  fill: rgba(0, 0, 0, 0.95);
+}
+.preloader-overlay.light .preloader-copyright,
+.preloader-overlay.light .preloader-percentage {
+  color: rgba(0, 0, 0, 0.8);
+}
+.preloader-overlay.light .preloader-status {
+  color: rgba(0, 0, 0, 0.7);
+}
+.preloader-overlay.light .preloader-baseline {
+  border-bottom: 1.5px dotted rgba(0, 0, 0, 0.25);
+}
+.preloader-overlay.light .baseline-progress-line {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.95) 75%, #fbbf24 100%);
+}
+.preloader-overlay.light .baseline-dot {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Top Header Bar */

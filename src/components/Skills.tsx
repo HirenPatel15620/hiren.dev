@@ -64,6 +64,13 @@ export default function Skills() {
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
 
+    const spotlightColors = [
+        'rgba(236, 72, 153, 0.15)',
+        'rgba(16, 185, 129, 0.15)',
+        'rgba(245, 158, 11, 0.15)',
+        'rgba(59, 130, 246, 0.15)'
+    ];
+
     return (
         <Box
             id="skills"
@@ -161,7 +168,7 @@ export default function Skills() {
                         return (
                             <Grid key={index} size={{ xs: 12, md: 6 }}>
                                 <SpotlightCard
-                                    spotlightColor="rgba(102, 126, 234, 0.12)"
+                                    spotlightColor={spotlightColors[index % spotlightColors.length]}
                                     sx={{
                                         height: '100%',
                                         background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',

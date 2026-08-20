@@ -1,5 +1,6 @@
 
-import { Box, Container, Typography, Grid, Paper, Button, useTheme } from '@mui/material';
+import { Box, Container, Typography, Grid, Button, useTheme } from '@mui/material';
+import SpotlightCard from './animations/SpotlightCard';
 import { ACCENT_PRIMARY } from '../theme/theme';
 
 export default function Portfolio() {
@@ -25,6 +26,12 @@ export default function Portfolio() {
             image: '/images/project-reward-system.png',
             tech: ['.NET Core', 'EF Core', 'React', 'SQL Server'],
         }
+    ];
+
+    const portfolioSpotlightColors = [
+        'rgba(236, 72, 153, 0.15)',
+        'rgba(16, 185, 129, 0.15)',
+        'rgba(245, 158, 11, 0.15)'
     ];
 
     return (
@@ -63,9 +70,9 @@ export default function Portfolio() {
                 <Grid container spacing={4}>
                     {projects.map((project, index) => (
                         <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-                            <Paper
+                            <SpotlightCard
                                 className="cursor-target"
-                                elevation={0}
+                                spotlightColor={portfolioSpotlightColors[index % portfolioSpotlightColors.length]}
                                 sx={{
                                     position: 'relative',
                                     borderRadius: '20px',
@@ -189,7 +196,7 @@ export default function Portfolio() {
                                         View Architecture Details →
                                     </Button>
                                 </Box>
-                            </Paper>
+                            </SpotlightCard>
                         </Grid>
                     ))}
                 </Grid>

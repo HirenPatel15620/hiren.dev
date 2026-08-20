@@ -3,6 +3,7 @@ import './Preloader.css';
 
 interface PreloaderProps {
   onComplete: () => void;
+  themeMode?: 'light' | 'dark';
 }
 
 const CRITICAL_IMAGES = [
@@ -14,7 +15,7 @@ const CRITICAL_IMAGES = [
   '/favicon.svg'
 ];
 
-export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
+export const Preloader: React.FC<PreloaderProps> = ({ onComplete, themeMode = 'dark' }) => {
   const [displayProgress, setDisplayProgress] = useState<number>(0);
   const [isFadingOut, setIsFadingOut] = useState<boolean>(false);
   const targetProgressRef = useRef<number>(0);
@@ -143,7 +144,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     "C 142,81 162,77 185,76";
 
   return (
-    <div className={`preloader-overlay ${isFadingOut ? 'fade-out' : ''}`}>
+    <div className={`preloader-overlay ${themeMode === 'light' ? 'light' : 'dark'} ${isFadingOut ? 'fade-out' : ''}`}>
       {/* Top Header */}
       <div className="preloader-header">
         <div className="preloader-name">HIREN PATEL</div>
