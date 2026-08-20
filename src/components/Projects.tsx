@@ -49,6 +49,12 @@ export default function Projects() {
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
 
+    const spotlightColors = [
+        'rgba(236, 72, 153, 0.15)',
+        'rgba(16, 185, 129, 0.15)',
+        'rgba(245, 158, 11, 0.15)'
+    ];
+
     return (
         <Box
             id="projects"
@@ -88,7 +94,7 @@ export default function Projects() {
                         <SpotlightCard
                             key={index}
                             className="cursor-target"
-                            spotlightColor="rgba(102, 126, 234, 0.12)"
+                            spotlightColor={spotlightColors[index % spotlightColors.length]}
                             sx={{
                                 background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '1.75rem', sm: '2.25rem', md: '2.75rem' },

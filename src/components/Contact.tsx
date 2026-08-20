@@ -64,7 +64,7 @@ export default function Contact() {
                     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <SpotlightCard
                             className="cursor-target"
-                            spotlightColor="rgba(102, 126, 234, 0.15)"
+                            spotlightColor="rgba(245, 158, 11, 0.15)"
                             sx={{
                                 background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '2rem 1.5rem', sm: '2.5rem 1.75rem' },
@@ -118,7 +118,7 @@ export default function Contact() {
                     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <SpotlightCard
                             className="cursor-target"
-                            spotlightColor="rgba(118, 75, 162, 0.15)"
+                            spotlightColor="rgba(59, 130, 246, 0.15)"
                             sx={{
                                 background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '2rem 1.5rem', sm: '2.5rem 1.75rem' },
@@ -184,7 +184,7 @@ export default function Contact() {
                     {/* Work Together CTA Card */}
                     <Grid size={{ xs: 12, md: 4 }}>
                         <SpotlightCard
-                            spotlightColor="rgba(102, 126, 234, 0.15)"
+                            spotlightColor="rgba(16, 185, 129, 0.15)"
                             sx={{
                                 background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '2rem 1.5rem', sm: '2.5rem 1.75rem' },

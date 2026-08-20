@@ -53,7 +53,7 @@ function AppContent() {
       <GlobalStyles />
       
       {showPreloader && (
-        <Preloader onComplete={handlePreloaderComplete} />
+        <Preloader onComplete={handlePreloaderComplete} themeMode={mode} />
       )}
 
       {/* Theme Transition Loader Overlay */}

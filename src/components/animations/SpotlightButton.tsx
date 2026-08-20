@@ -8,9 +8,10 @@ interface SpotlightButtonProps extends ButtonProps {
     target?: string;
     href?: string;
     component?: any;
+    spotlightColor?: string;
 }
 
-const SpotlightButton: React.FC<SpotlightButtonProps> = ({ children, sx, ...props }) => {
+const SpotlightButton: React.FC<SpotlightButtonProps> = ({ children, sx, spotlightColor, ...props }) => {
     const divRef = useRef<HTMLButtonElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [opacity, setOpacity] = useState(0);
@@ -68,7 +69,7 @@ const SpotlightButton: React.FC<SpotlightButtonProps> = ({ children, sx, ...prop
                     opacity: opacity,
                     transition: 'opacity 0.2s',
                     zIndex: 0,
-                    background: `radial-gradient(circle at ${position.x}px ${position.y}px, rgba(102, 126, 234, 0.25), transparent 60%)`,
+                    background: `radial-gradient(circle at ${position.x}px ${position.y}px, ${spotlightColor || 'rgba(102, 126, 234, 0.25)'}, transparent 60%)`,
                 }}
             />
             <Box sx={{ position: 'relative', zIndex: 1 }}>

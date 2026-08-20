@@ -15,6 +15,13 @@ export default function About() {
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
 
+    const statSpotlightColors = [
+        'rgba(236, 72, 153, 0.15)',
+        'rgba(16, 185, 129, 0.15)',
+        'rgba(245, 158, 11, 0.15)',
+        'rgba(59, 130, 246, 0.15)'
+    ];
+
     return (
         <Box
             id="about"
@@ -52,8 +59,9 @@ export default function About() {
                 <Grid container spacing={3} sx={{ marginBottom: { xs: '3rem', md: '4rem' } }}>
                     {statsData.map((stat, idx) => (
                         <Grid key={idx} size={{ xs: 6, sm: 3 }}>
-                            <Box
+                            <SpotlightCard
                                 className="cursor-target"
+                                spotlightColor={statSpotlightColors[idx % statSpotlightColors.length]}
                                 sx={{
                                     background: isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)',
                                     border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)'}`,
@@ -62,6 +70,7 @@ export default function About() {
                                     textAlign: 'center',
                                     backdropFilter: 'blur(10px)',
                                     transition: 'all 0.3s ease',
+                                    height: '100%',
                                     '&:hover': {
                                         transform: 'translateY(-4px)',
                                         borderColor: ACCENT_PRIMARY,
@@ -106,7 +115,7 @@ export default function About() {
                                 >
                                     {stat.label}
                                 </Typography>
-                            </Box>
+                            </SpotlightCard>
                         </Grid>
                     ))}
                 </Grid>
@@ -117,7 +126,7 @@ export default function About() {
                     <Grid size={{ xs: 12, md: 6 }}>
                         <SpotlightCard
                             className="cursor-target"
-                            spotlightColor="rgba(102, 126, 234, 0.15)"
+                            spotlightColor="rgba(236, 72, 153, 0.15)"
                             sx={{
                                 background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '1.75rem', sm: '2.25rem', md: '2.5rem' },
@@ -188,7 +197,7 @@ export default function About() {
                     <Grid size={{ xs: 12, md: 6 }}>
                         <SpotlightCard
                             className="cursor-target"
-                            spotlightColor="rgba(118, 75, 162, 0.15)"
+                            spotlightColor="rgba(16, 185, 129, 0.15)"
                             sx={{
                                 background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
                                 padding: { xs: '1.75rem', sm: '2.25rem', md: '2.5rem' },
