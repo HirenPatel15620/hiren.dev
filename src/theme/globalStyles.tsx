@@ -162,16 +162,16 @@ export const GlobalStyles = () => {
                     mixBlendMode: 'difference',
                     transition: 'all 0.15s ease-out',
                 },
-                section: {
-                    padding: '4rem 0',
-                    opacity: 0,
-                    transform: 'translateY(30px)',
-                    transition: 'all 0.8s ease',
-                    '&.visible': {
-                        opacity: 1,
-                        transform: 'translateY(0)',
+                    section: {
+                        padding: '4rem 0',
+                        opacity: 0,
+                        transform: 'translateY(30px)',
+                        transition: 'all 0.8s ease',
+                        '&.visible, &[data-visible="true"]': {
+                            opacity: 1,
+                            transform: 'translateY(0)',
+                        },
                     },
-                },
             }}
         />
     );

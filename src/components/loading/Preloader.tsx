@@ -4,6 +4,7 @@ import './Preloader.css';
 interface PreloaderProps {
   onComplete: () => void;
   themeMode?: 'light' | 'dark';
+  isThemeTransition?: boolean;
 }
 
 const CRITICAL_IMAGES = [
@@ -15,7 +16,7 @@ const CRITICAL_IMAGES = [
   '/favicon.svg'
 ];
 
-export const Preloader: React.FC<PreloaderProps> = ({ onComplete, themeMode = 'dark' }) => {
+export const Preloader: React.FC<PreloaderProps> = ({ onComplete, themeMode = 'dark', isThemeTransition = false }) => {
   const [displayProgress, setDisplayProgress] = useState<number>(0);
   const [isFadingOut, setIsFadingOut] = useState<boolean>(false);
   const targetProgressRef = useRef<number>(0);
@@ -33,6 +34,11 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, themeMode = 'd
         targetProgressRef.current = calculated;
       }
     };
+
+    if (isThemeTransition) {
+      targetProgressRef.current = 100;
+      return;
+    }
 
     // Preload images
     CRITICAL_IMAGES.forEach((src) => {
@@ -107,7 +113,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete, themeMode = 'd
   // Trigger completion when displayProgress reaches 100% & monogram has had time to complete drawing
   useEffect(() => {
     if (displayProgress >= 100) {
-      const MIN_MONOGRAM_DURATION = 2400; // Minimum ms to wait for monogram draw animation
+      const MIN_MONOGRAM_DURATION = isThemeTransition ? 1000 : 2400; // Faster for theme transitions
       const elapsed = Date.now() - startTimeRef.current;
       const waitTime = Math.max(0, MIN_MONOGRAM_DURATION - elapsed);
 

@@ -67,13 +67,12 @@ export default function Hero() {
                 }}
             >
                 <Box
-                    className="hero-text"
+                    className="hero-text animate-fade-in-up"
                     sx={{
                         paddingLeft: { xs: '1.5rem', sm: '2.5rem', md: '8%' },
                         paddingRight: { xs: '1.5rem', sm: '2.5rem', md: 0 },
                         paddingTop: { xs: '1.5rem', md: 0 },
                         paddingBottom: { xs: '2rem', md: 0 },
-                        animation: 'fadeInUp 1s ease',
                         zIndex: 3,
                         order: { xs: 2, md: 1 },
                     }}
@@ -223,7 +222,7 @@ export default function Hero() {
                 </Box>
 
                 <Box
-                    className="hero-image"
+                    className="hero-image animate-fade-in"
                     sx={{
                         position: { xs: 'relative', md: 'absolute' },
                         right: { xs: 0, md: '2%' },
@@ -233,7 +232,6 @@ export default function Hero() {
                         display: 'flex',
                         alignItems: 'flex-end',
                         justifyContent: 'center',
-                        animation: 'fadeIn 1.2s ease',
                         order: { xs: 1, md: 2 },
                         zIndex: 2,
                     }}

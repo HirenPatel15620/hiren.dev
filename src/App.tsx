@@ -16,7 +16,7 @@ import TargetCursor from './components/TargetCursor';
 import Preloader from './components/loading/Preloader';
 
 function AppContent() {
-  const { mode, isTransitioning } = useThemeMode();
+  const { mode, isTransitioning, completeTransition } = useThemeMode();
   const theme = useMemo(() => getTheme(mode), [mode]);
 
   const [loading, setLoading] = useState(true);
@@ -34,6 +34,7 @@ function AppContent() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          entry.target.setAttribute('data-visible', 'true');
         }
       });
     }, {
@@ -58,24 +59,7 @@ function AppContent() {
 
       {/* Theme Transition Loader Overlay */}
       {isTransitioning && (
-        <Box
-          sx={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 9999,
-            background: mode === 'dark' ? 'rgba(0, 0, 0, 0.7)' : 'rgba(255, 255, 255, 0.7)',
-            backdropFilter: 'blur(10px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            animation: 'fadeIn 0.2s ease',
-          }}
-        >
-          <CircularProgress size={60} sx={{ color: ACCENT_PRIMARY }} />
-        </Box>
+        <Preloader onComplete={completeTransition} themeMode={mode} isThemeTransition={true} />
       )}
 
       <TargetCursor

@@ -6,6 +6,7 @@ interface ThemeContextType {
     mode: ThemeMode;
     toggleTheme: () => void;
     isTransitioning: boolean;
+    completeTransition: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -35,14 +36,13 @@ export function ThemeContextProvider({ children }: { children: ReactNode }) {
         // Add a tiny delay so the loader can fade in before the heavy re-render
         setTimeout(() => {
             setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
-            // Keep loader for a brief moment after switch
-            setTimeout(() => {
-                setIsTransitioning(false);
-            }, 500);
+            // The loader (Preloader) will call completeTransition when it finishes its animation
         }, 150);
     };
 
-    const value = useMemo(() => ({ mode, toggleTheme, isTransitioning }), [mode, isTransitioning]);
+    const completeTransition = () => setIsTransitioning(false);
+
+    const value = useMemo(() => ({ mode, toggleTheme, isTransitioning, completeTransition }), [mode, isTransitioning]);
 
     return (
         <ThemeContext.Provider value={value}>
