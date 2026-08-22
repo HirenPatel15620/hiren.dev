@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
-import { ThemeProvider, CssBaseline, Box, CircularProgress } from '@mui/material';
-import { getTheme, ACCENT_PRIMARY } from './theme/theme';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { getTheme } from './theme/theme';
 import { GlobalStyles } from './theme/globalStyles';
 import { ThemeContextProvider, useThemeMode } from './context/ThemeContext';
 import Navigation from './components/Navigation';
