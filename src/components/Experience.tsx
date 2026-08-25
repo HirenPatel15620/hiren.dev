@@ -1,8 +1,13 @@
-
 import { Box, Container, Typography, Chip, useTheme } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import TextReveal from './animations/TextReveal';
 import { getExperienceYears } from '../utils/experience';
-import { ACCENT_PRIMARY, ACCENT_GRADIENT } from '../theme/theme';
+import { ACCENT_PRIMARY } from '../theme/theme';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const experienceData = [
     {
@@ -41,10 +46,64 @@ export default function Experience() {
         'rgba(59, 130, 246, 0.15)'
     ];
 
+    const sectionRef = useRef<HTMLElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
+    const cardsRef = useRef<HTMLDivElement[]>([]);
+    const lineRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        // Header
+        gsap.fromTo(headerRef.current,
+            { y: 80, opacity: 0, scale: 0.9 },
+            {
+                y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out',
+                scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 75%' }
+            }
+        );
+
+        // Timeline Line
+        gsap.fromTo(lineRef.current,
+            { scaleY: 0 },
+            {
+                scaleY: 1, transformOrigin: 'top', ease: 'none',
+                scrollTrigger: { toggleActions: 'play reverse play reverse',
+                    trigger: section,
+                    start: 'top 50%',
+                    end: 'bottom 80%',
+                    scrub: 0.5
+                }
+            }
+        );
+
+        // Cards
+        cardsRef.current.forEach((card, i) => {
+            if (card) {
+                gsap.fromTo(card,
+                    { x: i % 2 === 0 ? -150 : 150, opacity: 0, scale: 0.8, rotationY: i % 2 === 0 ? -15 : 15 },
+                    {
+                        x: 0, opacity: 1, scale: 1, rotationY: 0, duration: 1.2, ease: 'back.out(1.2)',
+                        scrollTrigger: { toggleActions: 'play reverse play reverse',
+                            trigger: card,
+                            start: 'top 85%'
+                        }
+                    }
+                );
+            }
+        });
+
+        return () => {
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
+    }, []);
+
     return (
         <Box
             id="experience"
             component="section"
+            ref={sectionRef}
             sx={{
                 background: isDark
                     ? 'linear-gradient(180deg, #050505 0%, #080808 100%)'
@@ -56,8 +115,9 @@ export default function Experience() {
         >
             <Container maxWidth="lg">
                 {/* Header */}
-                <Box sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '4.5rem' } }}>
-                    <Typography
+                <Box ref={headerRef} sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '5rem' } }}>
+                    <TextReveal
+                        as={Typography}
                         variant="h2"
                         sx={{
                             fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem' },
@@ -68,7 +128,7 @@ export default function Experience() {
                         }}
                     >
                         Professional <span className="text-gradient">Experience</span>
-                    </Typography>
+                    </TextReveal>
                     <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: theme.palette.text.secondary }}>
                         My career path and key contributions in software engineering
                     </Typography>
@@ -81,21 +141,24 @@ export default function Experience() {
                         paddingLeft: { xs: '1.75rem', sm: '2.5rem', md: '3rem' },
                         maxWidth: '900px',
                         margin: '0 auto',
-                        '&::before': {
-                            content: '""',
+                    }}
+                >
+                    <Box 
+                        ref={lineRef}
+                        sx={{
                             position: 'absolute',
                             left: 0,
                             top: '10px',
                             bottom: '10px',
                             width: '3px',
                             borderRadius: '3px',
-                            background: ACCENT_GRADIENT,
+                            background: `linear-gradient(180deg, ${ACCENT_PRIMARY}, #9333ea)`,
                             boxShadow: '0 0 12px rgba(102, 126, 234, 0.3)',
-                        }
-                    }}
-                >
+                            zIndex: 1
+                        }} 
+                    />
                     {experienceData.map((item, index) => (
-                        <Box key={index} sx={{ position: 'relative', marginBottom: { xs: '3rem', md: '4rem' } }}>
+                        <Box key={index} ref={(el: any) => { if(el) cardsRef.current[index] = el; }} sx={{ position: 'relative', marginBottom: { xs: '3rem', md: '4rem' } }}>
                             {/* Pulse Timeline Marker */}
                             <Box
                                 sx={{

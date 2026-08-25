@@ -1,7 +1,12 @@
-
 import { Box, Container, Typography, useTheme } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import TextReveal from './animations/TextReveal';
 import { ACCENT_PRIMARY } from '../theme/theme';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projectsData = [
     {
@@ -55,10 +60,49 @@ export default function Projects() {
         'rgba(245, 158, 11, 0.15)'
     ];
 
+    const sectionRef = useRef<HTMLElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
+    const cardsRef = useRef<HTMLDivElement[]>([]);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        // Header
+        gsap.fromTo(headerRef.current,
+            { y: 80, opacity: 0, scale: 0.9 },
+            {
+                y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out',
+                scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 75%' }
+            }
+        );
+
+        // Cards
+        cardsRef.current.forEach((card) => {
+            if (card) {
+                gsap.fromTo(card,
+                    { y: 120, opacity: 0, scale: 0.8 },
+                    {
+                        y: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'back.out(1.2)',
+                        scrollTrigger: { toggleActions: 'play reverse play reverse',
+                            trigger: card,
+                            start: 'top 85%'
+                        }
+                    }
+                );
+            }
+        });
+
+        return () => {
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
+    }, []);
+
     return (
         <Box
             id="projects"
             component="section"
+            ref={sectionRef}
             sx={{
                 background: isDark
                     ? 'linear-gradient(180deg, #080808 0%, #0a0a0a 100%)'
@@ -70,8 +114,9 @@ export default function Projects() {
         >
             <Container maxWidth="lg">
                 {/* Header */}
-                <Box sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '4.5rem' } }}>
-                    <Typography
+                <Box ref={headerRef} sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '5rem' } }}>
+                    <TextReveal
+                        as={Typography}
                         variant="h2"
                         sx={{
                             fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem' },
@@ -81,8 +126,8 @@ export default function Projects() {
                             color: theme.palette.text.primary,
                         }}
                     >
-                        Key <span className="text-gradient">Projects</span>
-                    </Typography>
+                        Selected <span className="text-gradient">Projects</span>
+                    </TextReveal>
                     <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: theme.palette.text.secondary }}>
                         Production software systems and enterprise applications engineered for real-world impact
                     </Typography>
@@ -91,9 +136,9 @@ export default function Projects() {
                 {/* Project Stack Cards */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: '2.5rem', md: '3.5rem' } }}>
                     {projectsData.map((project, index) => (
-                        <SpotlightCard
-                            key={index}
-                            className="cursor-target"
+                        <Box key={index} ref={(el: any) => { if(el) cardsRef.current[index] = el; }}>
+                            <SpotlightCard
+                                className="cursor-target"
                             spotlightColor={spotlightColors[index % spotlightColors.length]}
                             sx={{
                                 background: isDark ? 'rgba(20, 20, 20, 0.65)' : 'rgba(255, 255, 255, 0.75)',
@@ -200,6 +245,7 @@ export default function Projects() {
                                 </Typography>
                             </Box>
                         </SpotlightCard>
+                    </Box>
                     ))}
                 </Box>
             </Container>

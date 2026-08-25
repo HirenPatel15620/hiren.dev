@@ -1,8 +1,13 @@
-
 import { Box, Container, Typography, Grid, Link, useTheme } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import TextReveal from './animations/TextReveal';
 import { getExperienceYears } from '../utils/experience';
 import { ACCENT_PRIMARY, ACCENT_GRADIENT } from '../theme/theme';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const statsData = [
     { value: `${getExperienceYears('2023-01-25')}+`, label: 'Years Experience' },
@@ -14,6 +19,48 @@ const statsData = [
 export default function About() {
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
+    
+    const sectionRef = useRef<HTMLElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
+    const statsRef = useRef<HTMLDivElement[]>([]);
+    const contentRef = useRef<HTMLDivElement[]>([]);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        gsap.fromTo(headerRef.current, 
+            { y: 50, opacity: 0 },
+            {
+                y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+                scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: headerRef.current, start: 'top 85%' }
+            }
+        );
+
+        gsap.fromTo(statsRef.current,
+            { y: 30, opacity: 0, scale: 0.9 },
+            {
+                y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.1, ease: 'back.out(1.7)',
+                scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: statsRef.current[0], start: 'top 85%' }
+            }
+        );
+
+        contentRef.current.forEach((card) => {
+            if (card) {
+                gsap.fromTo(card,
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+                        scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: card, start: 'top 85%' }
+                    }
+                );
+            }
+        });
+
+        return () => {
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
+    }, []);
 
     const statSpotlightColors = [
         'rgba(236, 72, 153, 0.15)',
@@ -26,6 +73,7 @@ export default function About() {
         <Box
             id="about"
             component="section"
+            ref={sectionRef}
             sx={{
                 background: isDark
                     ? 'linear-gradient(180deg, #050505 0%, #0a0a0a 100%)'
@@ -37,8 +85,9 @@ export default function About() {
         >
             <Container maxWidth="lg">
                 {/* Header */}
-                <Box sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '4rem' } }}>
-                    <Typography
+                <Box ref={headerRef} sx={{ width: '100%', marginBottom: { xs: '3rem', md: '4rem' } }}>
+                    <TextReveal
+                        as={Typography}
                         variant="h2"
                         sx={{
                             fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem' },
@@ -49,7 +98,7 @@ export default function About() {
                         }}
                     >
                         About <span className="text-gradient">Me</span>
-                    </Typography>
+                    </TextReveal>
                     <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: theme.palette.text.secondary }}>
                         Passionate Software Engineer bridging enterprise backend logic with responsive frontend UIs
                     </Typography>
@@ -58,7 +107,7 @@ export default function About() {
                 {/* Key Stat Cards Grid */}
                 <Grid container spacing={3} sx={{ marginBottom: { xs: '3rem', md: '4rem' } }}>
                     {statsData.map((stat, idx) => (
-                        <Grid key={idx} size={{ xs: 6, sm: 3 }}>
+                        <Grid key={idx} size={{ xs: 6, sm: 3 }} ref={(el) => { if(el) statsRef.current[idx] = el; }}>
                             <SpotlightCard
                                 className="cursor-target"
                                 spotlightColor={statSpotlightColors[idx % statSpotlightColors.length]}
@@ -123,7 +172,7 @@ export default function About() {
                 {/* Main Content Grid */}
                 <Grid container spacing={4}>
                     {/* Professional Background */}
-                    <Grid size={{ xs: 12, md: 6 }}>
+                    <Grid size={{ xs: 12, md: 6 }} ref={(el: any) => { if(el) contentRef.current[0] = el; }}>
                         <SpotlightCard
                             className="cursor-target"
                             spotlightColor="rgba(236, 72, 153, 0.15)"
@@ -194,7 +243,7 @@ export default function About() {
                     </Grid>
 
                     {/* Education & Personal Details */}
-                    <Grid size={{ xs: 12, md: 6 }}>
+                    <Grid size={{ xs: 12, md: 6 }} ref={(el: any) => { if(el) contentRef.current[1] = el; }}>
                         <SpotlightCard
                             className="cursor-target"
                             spotlightColor="rgba(16, 185, 129, 0.15)"

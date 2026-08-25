@@ -1,8 +1,13 @@
-
 import { Box, Typography, useTheme } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import TextType from './animations/TextType';
+import TextReveal from './animations/TextReveal';
 import SpotlightButton from './animations/SpotlightButton';
+import ConfettiBackground from './animations/ConfettiBackground';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 import { ACCENT_GRADIENT, ACCENT_PRIMARY } from '../theme/theme';
 
@@ -11,13 +16,38 @@ export default function Hero() {
     const [imgError, setImgError] = useState(false);
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
+    
+    const imageContainerRef = useRef<HTMLDivElement>(null);
+    const imageRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
         const handleScroll = () => {
             setBackgroundY(window.scrollY * 0.5);
         };
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        
+        // Disintegration/Dissolve effect on scroll for Hero image
+        if (imageRef.current && imageContainerRef.current) {
+            gsap.to(imageRef.current, {
+                scrollTrigger: {
+                    trigger: imageContainerRef.current,
+                    start: "top 30%",
+                    end: "bottom top",
+                    scrub: 1, // Smooth scrubbing
+                },
+                y: 100,
+                scale: 0.85,
+                opacity: 0,
+                filter: "blur(20px)",
+                rotation: 2,
+                ease: "power2.inOut"
+            });
+        }
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
     }, []);
 
     return (
@@ -38,7 +68,6 @@ export default function Hero() {
             }}
         >
 
-            {/* Parallax Background */}
             <Box
                 className="hero-background"
                 sx={{
@@ -51,7 +80,9 @@ export default function Hero() {
                     zIndex: 1,
                     transform: `translateY(${backgroundY}px)`,
                 }}
-            />
+            >
+                <ConfettiBackground />
+            </Box>
 
             <Box
                 className="hero-content-wrapper"
@@ -108,7 +139,8 @@ export default function Hero() {
                         Available for Software Engineering Roles
                     </Box>
 
-                    <Typography
+                    <TextReveal
+                        as={Typography}
                         variant="h1"
                         sx={{
                             fontSize: { xs: '2.4rem', sm: '3.2rem', md: '3.6rem' },
@@ -120,7 +152,7 @@ export default function Hero() {
                         }}
                     >
                         Hi, I am <Box component="span" className="text-gradient" sx={{ fontWeight: 800 }}>Hiren Patel</Box>.
-                    </Typography>
+                    </TextReveal>
 
                     <Typography
                         variant="h2"
@@ -222,6 +254,7 @@ export default function Hero() {
                 </Box>
 
                 <Box
+                    ref={imageContainerRef}
                     className="hero-image animate-fade-in"
                     sx={{
                         position: { xs: 'relative', md: 'absolute' },
@@ -237,6 +270,7 @@ export default function Hero() {
                     }}
                 >
                     <Box
+                        ref={imageRef}
                         component="img"
                         src={imgError ? "/images/avatar-fallback.png" : "/images/hero-profile-transparent.png"}
                         onError={() => setImgError(true)}
@@ -249,7 +283,8 @@ export default function Hero() {
                             objectFit: 'contain',
                             objectPosition: 'center bottom',
                             padding: 0,
-                            filter: isDark ? 'drop-shadow(0 0 30px rgba(102, 126, 234, 0.15))' : 'drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15))'
+                            filter: isDark ? 'drop-shadow(0 0 30px rgba(102, 126, 234, 0.15))' : 'drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15))',
+                            transformOrigin: 'bottom center',
                         }}
                     />
                 </Box>

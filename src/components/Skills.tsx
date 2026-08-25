@@ -1,7 +1,13 @@
 import { Box, Container, Typography, Grid, Chip, SvgIcon, useTheme } from '@mui/material';
 import type { SvgIconProps } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import TextReveal from './animations/TextReveal';
 import { ACCENT_PRIMARY, ACCENT_GRADIENT } from '../theme/theme';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const DnsRoundedIcon = (props: SvgIconProps) => (
     <SvgIcon {...props}>
@@ -71,10 +77,40 @@ export default function Skills() {
         'rgba(59, 130, 246, 0.15)'
     ];
 
+    const sectionRef = useRef<HTMLElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
+    const cardsRef = useRef<HTMLDivElement[]>([]);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        gsap.fromTo(headerRef.current,
+            { y: 80, opacity: 0, scale: 0.9 },
+            {
+                y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out',
+                scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 75%' }
+            }
+        );
+
+        gsap.fromTo(cardsRef.current,
+            { y: 100, opacity: 0, scale: 0.8 },
+            {
+                y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.15, ease: 'back.out(1.5)',
+                scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 65%' }
+            }
+        );
+
+        return () => {
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
+    }, []);
+
     return (
         <Box
             id="skills"
             component="section"
+            ref={sectionRef}
             sx={{
                 background: isDark
                     ? 'linear-gradient(180deg, #0a0a0a 0%, #050505 100%)'
@@ -114,7 +150,7 @@ export default function Skills() {
         >
             <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
                 {/* Header */}
-                <Box sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '4.5rem' } }}>
+                <Box ref={headerRef} sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '4.5rem' } }}>
                     <Box
                         sx={{
                             display: 'inline-flex',
@@ -136,7 +172,8 @@ export default function Skills() {
                         Expertise & Capability
                     </Box>
 
-                    <Typography
+                    <TextReveal
+                        as={Typography}
                         variant="h2"
                         sx={{
                             fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem' },
@@ -147,7 +184,7 @@ export default function Skills() {
                         }}
                     >
                         Technical <span className="text-gradient">Skills</span>
-                    </Typography>
+                    </TextReveal>
                     <Typography
                         sx={{
                             fontSize: { xs: '1rem', md: '1.15rem' },
@@ -166,7 +203,7 @@ export default function Skills() {
                     {skillsData.map((item, index) => {
                         const IconComponent = item.icon;
                         return (
-                            <Grid key={index} size={{ xs: 12, md: 6 }}>
+                            <Grid key={index} size={{ xs: 12, md: 6 }} ref={(el) => { if(el) cardsRef.current[index] = el; }}>
                                 <SpotlightCard
                                     spotlightColor={spotlightColors[index % spotlightColors.length]}
                                     sx={{

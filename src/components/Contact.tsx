@@ -1,8 +1,13 @@
-
 import { Box, Container, Typography, Grid, Button, Link, SvgIcon, useTheme } from '@mui/material';
 import type { SvgIconProps } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import TextReveal from './animations/TextReveal';
 import { ACCENT_PRIMARY, ACCENT_GRADIENT } from '../theme/theme';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const LocationIcon = (props: SvgIconProps) => (
     <SvgIcon viewBox="0 0 24 24" {...props}>
@@ -26,10 +31,45 @@ export default function Contact() {
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
 
+    const sectionRef = useRef<HTMLElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
+    const cardsRef = useRef<HTMLDivElement[]>([]);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        // Header
+        gsap.fromTo(headerRef.current,
+            { y: 80, opacity: 0, scale: 0.9 },
+            {
+                y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out',
+                scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 85%' }
+            }
+        );
+
+        // Cards Stagger
+        gsap.fromTo(cardsRef.current,
+            { y: 120, opacity: 0, scale: 0.8 },
+            {
+                y: 0, opacity: 1, scale: 1, duration: 1.2, stagger: 0.15, ease: 'back.out(1.2)',
+                scrollTrigger: { toggleActions: 'play reverse play reverse',
+                    trigger: section,
+                    start: 'top 75%'
+                }
+            }
+        );
+
+        return () => {
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
+    }, []);
+
     return (
         <Box
             id="contact"
             component="section"
+            ref={sectionRef}
             sx={{
                 background: isDark
                     ? 'linear-gradient(180deg, #0a0a0a 0%, #060606 100%)'
@@ -41,8 +81,9 @@ export default function Contact() {
         >
             <Container maxWidth="lg">
                 {/* Header */}
-                <Box sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '4.5rem' } }}>
-                    <Typography
+                <Box ref={headerRef} sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '4.5rem' } }}>
+                    <TextReveal
+                        as={Typography}
                         variant="h2"
                         sx={{
                             fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem' },
@@ -53,7 +94,7 @@ export default function Contact() {
                         }}
                     >
                         Get In <span className="text-gradient">Touch</span>
-                    </Typography>
+                    </TextReveal>
                     <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: theme.palette.text.secondary }}>
                         Interested in collaborating or discussing new software projects? Let's connect!
                     </Typography>
@@ -61,7 +102,7 @@ export default function Contact() {
 
                 <Grid container spacing={3} alignItems="stretch">
                     {/* Location Card */}
-                    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Grid size={{ xs: 12, sm: 6, md: 4 }} ref={(el) => { if(el) cardsRef.current[0] = el; }}>
                         <SpotlightCard
                             className="cursor-target"
                             spotlightColor="rgba(245, 158, 11, 0.15)"
@@ -115,7 +156,7 @@ export default function Contact() {
                     </Grid>
 
                     {/* LinkedIn Card */}
-                    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Grid size={{ xs: 12, sm: 6, md: 4 }} ref={(el) => { if(el) cardsRef.current[1] = el; }}>
                         <SpotlightCard
                             className="cursor-target"
                             spotlightColor="rgba(59, 130, 246, 0.15)"
@@ -182,7 +223,7 @@ export default function Contact() {
                     </Grid>
 
                     {/* Work Together CTA Card */}
-                    <Grid size={{ xs: 12, md: 4 }}>
+                    <Grid size={{ xs: 12, md: 4 }} ref={(el) => { if(el) cardsRef.current[2] = el; }}>
                         <SpotlightCard
                             spotlightColor="rgba(16, 185, 129, 0.15)"
                             sx={{

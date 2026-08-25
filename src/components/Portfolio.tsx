@@ -1,7 +1,12 @@
-
 import { Box, Container, Typography, Grid, Button, useTheme } from '@mui/material';
 import SpotlightCard from './animations/SpotlightCard';
+import TextReveal from './animations/TextReveal';
 import { ACCENT_PRIMARY } from '../theme/theme';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Portfolio() {
     const theme = useTheme();
@@ -34,10 +39,45 @@ export default function Portfolio() {
         'rgba(245, 158, 11, 0.15)'
     ];
 
+    const sectionRef = useRef<HTMLElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
+    const cardsRef = useRef<HTMLDivElement[]>([]);
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        // Header
+        gsap.fromTo(headerRef.current,
+            { y: 80, opacity: 0, scale: 0.9 },
+            {
+                y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out',
+                scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 75%' }
+            }
+        );
+
+        // Cards Stagger
+        gsap.fromTo(cardsRef.current,
+            { y: 120, opacity: 0, scale: 0.8 },
+            {
+                y: 0, opacity: 1, scale: 1, duration: 1.2, stagger: 0.2, ease: 'back.out(1.2)',
+                scrollTrigger: { toggleActions: 'play reverse play reverse',
+                    trigger: section,
+                    start: 'top 65%'
+                }
+            }
+        );
+
+        return () => {
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
+    }, []);
+
     return (
         <Box
             id="portfolio"
             component="section"
+            ref={sectionRef}
             sx={{
                 background: isDark
                     ? 'linear-gradient(180deg, #050505 0%, #080808 100%)'
@@ -49,8 +89,9 @@ export default function Portfolio() {
         >
             <Container maxWidth="lg">
                 {/* Header */}
-                <Box sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '4.5rem' } }}>
-                    <Typography
+                <Box ref={headerRef} sx={{ textAlign: 'center', marginBottom: { xs: '3rem', md: '4.5rem' } }}>
+                    <TextReveal
+                        as={Typography}
                         variant="h2"
                         sx={{
                             fontSize: { xs: '2.2rem', sm: '2.8rem', md: '3.4rem' },
@@ -61,7 +102,7 @@ export default function Portfolio() {
                         }}
                     >
                         My <span className="text-gradient">Portfolio</span>
-                    </Typography>
+                    </TextReveal>
                     <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: theme.palette.text.secondary }}>
                         Visual showcase of core software solutions and enterprise platforms
                     </Typography>
@@ -69,7 +110,7 @@ export default function Portfolio() {
 
                 <Grid container spacing={4}>
                     {projects.map((project, index) => (
-                        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
+                        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index} ref={(el) => { if(el) cardsRef.current[index] = el; }}>
                             <SpotlightCard
                                 className="cursor-target"
                                 spotlightColor={portfolioSpotlightColors[index % portfolioSpotlightColors.length]}

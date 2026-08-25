@@ -114,13 +114,31 @@ export const GlobalStyles = () => {
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
                 },
+                '.text-gradient .char': {
+                    background: ACCENT_GRADIENT,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                },
                 '.text-gradient-cyan': {
                     background: ACCENT_GRADIENT,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
                 },
+                '.text-gradient-cyan .char': {
+                    background: ACCENT_GRADIENT,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                },
                 '.text-gradient-amber': {
+                    background: ACCENT_GRADIENT,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                },
+                '.text-gradient-amber .char': {
                     background: ACCENT_GRADIENT,
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
