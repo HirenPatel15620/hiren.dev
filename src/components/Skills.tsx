@@ -88,7 +88,7 @@ export default function Skills() {
         gsap.fromTo(headerRef.current,
             { y: 80, opacity: 0, scale: 0.9 },
             {
-                y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out',
+                y: 0, opacity: 1, scale: 1, duration: 0.45, ease: 'power3.out',
                 scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 75%' }
             }
         );
@@ -96,7 +96,7 @@ export default function Skills() {
         gsap.fromTo(cardsRef.current,
             { y: 100, opacity: 0, scale: 0.8 },
             {
-                y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.15, ease: 'back.out(1.5)',
+                y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.08, ease: 'back.out(1.4)',
                 scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 65%' }
             }
         );

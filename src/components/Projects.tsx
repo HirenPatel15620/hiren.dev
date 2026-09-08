@@ -72,7 +72,7 @@ export default function Projects() {
         gsap.fromTo(headerRef.current,
             { y: 80, opacity: 0, scale: 0.9 },
             {
-                y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out',
+                y: 0, opacity: 1, scale: 1, duration: 0.45, ease: 'power3.out',
                 scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 75%' }
             }
         );
@@ -83,7 +83,7 @@ export default function Projects() {
                 gsap.fromTo(card,
                     { y: 120, opacity: 0, scale: 0.8 },
                     {
-                        y: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'back.out(1.2)',
+                        y: 0, opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.2)',
                         scrollTrigger: { toggleActions: 'play reverse play reverse',
                             trigger: card,
                             start: 'top 85%'
@@ -126,7 +126,7 @@ export default function Projects() {
                             color: theme.palette.text.primary,
                         }}
                     >
-                        Selected <span className="text-gradient">Projects</span>
+                        My <span className="text-gradient">Projects</span>
                     </TextReveal>
                     <Typography sx={{ fontSize: { xs: '1rem', md: '1.15rem' }, color: theme.palette.text.secondary }}>
                         Production software systems and enterprise applications engineered for real-world impact

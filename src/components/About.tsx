@@ -32,7 +32,7 @@ export default function About() {
         gsap.fromTo(headerRef.current, 
             { y: 50, opacity: 0 },
             {
-                y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+                y: 0, opacity: 1, duration: 0.45, ease: 'power3.out',
                 scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: headerRef.current, start: 'top 85%' }
             }
         );
@@ -40,7 +40,7 @@ export default function About() {
         gsap.fromTo(statsRef.current,
             { y: 30, opacity: 0, scale: 0.9 },
             {
-                y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.1, ease: 'back.out(1.7)',
+                y: 0, opacity: 1, scale: 1, duration: 0.35, stagger: 0.06, ease: 'back.out(1.5)',
                 scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: statsRef.current[0], start: 'top 85%' }
             }
         );
@@ -50,7 +50,7 @@ export default function About() {
                 gsap.fromTo(card,
                     { y: 50, opacity: 0 },
                     {
-                        y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+                        y: 0, opacity: 1, duration: 0.45, ease: 'power3.out',
                         scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: card, start: 'top 85%' }
                     }
                 );

@@ -43,7 +43,7 @@ export default function Contact() {
         gsap.fromTo(headerRef.current,
             { y: 80, opacity: 0, scale: 0.9 },
             {
-                y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out',
+                y: 0, opacity: 1, scale: 1, duration: 0.45, ease: 'power3.out',
                 scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 85%' }
             }
         );
@@ -52,7 +52,7 @@ export default function Contact() {
         gsap.fromTo(cardsRef.current,
             { y: 120, opacity: 0, scale: 0.8 },
             {
-                y: 0, opacity: 1, scale: 1, duration: 1.2, stagger: 0.15, ease: 'back.out(1.2)',
+                y: 0, opacity: 1, scale: 1, duration: 0.45, stagger: 0.08, ease: 'back.out(1.2)',
                 scrollTrigger: { toggleActions: 'play reverse play reverse',
                     trigger: section,
                     start: 'top 75%'

@@ -9,11 +9,12 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
-import Portfolio from './components/Portfolio';
+
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import TargetCursor from './components/TargetCursor';
 import Preloader from './components/loading/Preloader';
+import MotionPathBackground from './components/MotionPathBackground';
 
 function AppContent() {
   const { mode, isTransitioning, completeTransition } = useThemeMode();
@@ -70,13 +71,15 @@ function AppContent() {
 
       <Navigation />
 
-      <main style={{ visibility: loading ? 'hidden' : 'visible' }}>
+      {!loading && <MotionPathBackground />}
+
+      <main style={{ visibility: loading ? 'hidden' : 'visible', position: 'relative', zIndex: 1 }}>
         <Hero />
         <About />
         <Skills />
         <Experience />
         <Projects />
-        <Portfolio />
+
         <Contact />
       </main>
 

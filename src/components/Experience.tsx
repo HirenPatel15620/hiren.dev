@@ -59,7 +59,7 @@ export default function Experience() {
         gsap.fromTo(headerRef.current,
             { y: 80, opacity: 0, scale: 0.9 },
             {
-                y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out',
+                y: 0, opacity: 1, scale: 1, duration: 0.45, ease: 'power3.out',
                 scrollTrigger: { toggleActions: 'play reverse play reverse', trigger: section, start: 'top 75%' }
             }
         );
@@ -73,7 +73,7 @@ export default function Experience() {
                     trigger: section,
                     start: 'top 50%',
                     end: 'bottom 80%',
-                    scrub: 0.5
+                    scrub: 0.3
                 }
             }
         );
@@ -84,7 +84,7 @@ export default function Experience() {
                 gsap.fromTo(card,
                     { x: i % 2 === 0 ? -150 : 150, opacity: 0, scale: 0.8, rotationY: i % 2 === 0 ? -15 : 15 },
                     {
-                        x: 0, opacity: 1, scale: 1, rotationY: 0, duration: 1.2, ease: 'back.out(1.2)',
+                        x: 0, opacity: 1, scale: 1, rotationY: 0, duration: 0.5, ease: 'back.out(1.2)',
                         scrollTrigger: { toggleActions: 'play reverse play reverse',
                             trigger: card,
                             start: 'top 85%'
