@@ -13,6 +13,8 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import TargetCursor from './components/TargetCursor';
+import { ParallaxSection } from './components/animations/ParallaxSection';
+import { ScrollProgressBar } from './components/animations/ScrollProgressBar';
 import Preloader from './components/loading/Preloader';
 import MotionPathBackground from './components/MotionPathBackground';
 
@@ -72,15 +74,18 @@ function AppContent() {
       <Navigation />
 
       {!loading && <MotionPathBackground />}
+      {!loading && <ScrollProgressBar />}
 
       <main style={{ visibility: loading ? 'hidden' : 'visible', position: 'relative', zIndex: 1 }}>
         <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
 
-        <Contact />
+        <ParallaxSection imageSrc="/images/parallax/combined-bg.png" speed={0.2}>
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Contact />
+        </ParallaxSection>
       </main>
 
       <Footer />

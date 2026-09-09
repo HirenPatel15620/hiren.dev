@@ -104,9 +104,7 @@ export default function Projects() {
             component="section"
             ref={sectionRef}
             sx={{
-                background: isDark
-                    ? 'linear-gradient(180deg, #080808 0%, #0a0a0a 100%)'
-                    : 'linear-gradient(180deg, #efefef 0%, #f5f5f7 100%)',
+                background: 'transparent',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
                 transition: 'background 0.4s ease',

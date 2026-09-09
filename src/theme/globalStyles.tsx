@@ -24,6 +24,8 @@ export const GlobalStyles = () => {
                     overflowX: 'hidden',
                     backgroundColor: theme.palette.background.default,
                     transition: 'background-color 0.4s ease',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
                 },
                 body: {
                     backgroundColor: `${theme.palette.background.default} !important`,
@@ -43,18 +45,11 @@ export const GlobalStyles = () => {
                     backgroundColor: 'rgba(102, 126, 234, 0.4)',
                     color: '#ffffff',
                 },
+                // ─── Hide default native scrollbar ───
                 '::-webkit-scrollbar': {
-                    width: '8px',
-                },
-                '::-webkit-scrollbar-track': {
-                    background: isDark ? '#000000' : '#f0f0f0',
-                },
-                '::-webkit-scrollbar-thumb': {
-                    background: isDark ? '#2a2a2a' : '#c0c0c0',
-                    borderRadius: '4px',
-                },
-                '::-webkit-scrollbar-thumb:hover': {
-                    background: ACCENT_PRIMARY,
+                    display: 'none',
+                    width: 0,
+                    height: 0,
                 },
                 '@keyframes fadeInUp': {
                     from: {
@@ -107,6 +102,22 @@ export const GlobalStyles = () => {
                     '66%': {
                         transform: 'translate(35px, -35px) scale(1.15)',
                     },
+                },
+                // ─── ScrollProgressBar section nav dots & labels ───
+                '.scroll-nav-dot[data-active="true"]': {
+                    width: '6px !important',
+                    height: '6px !important',
+                    background: `${ACCENT_PRIMARY} !important`,
+                    boxShadow: `0 0 8px rgba(102,126,234,0.7), 0 0 16px rgba(102,126,234,0.4)`,
+                },
+                'a:hover .scroll-nav-label': {
+                    opacity: '1 !important',
+                    transform: 'translateX(0) !important',
+                },
+                'a:hover .scroll-nav-dot': {
+                    background: `${ACCENT_PRIMARY} !important`,
+                    boxShadow: `0 0 8px rgba(102,126,234,0.5)`,
+                    transform: 'scale(1.5)',
                 },
                 '.text-gradient': {
                     background: ACCENT_GRADIENT,

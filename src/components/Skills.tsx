@@ -112,9 +112,7 @@ export default function Skills() {
             component="section"
             ref={sectionRef}
             sx={{
-                background: isDark
-                    ? 'linear-gradient(180deg, #0a0a0a 0%, #050505 100%)'
-                    : 'linear-gradient(180deg, #efefef 0%, #f5f5f7 100%)',
+                background: 'transparent',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
                 transition: 'background 0.4s ease',

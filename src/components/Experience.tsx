@@ -105,9 +105,7 @@ export default function Experience() {
             component="section"
             ref={sectionRef}
             sx={{
-                background: isDark
-                    ? 'linear-gradient(180deg, #050505 0%, #080808 100%)'
-                    : 'linear-gradient(180deg, #f5f5f7 0%, #efefef 100%)',
+                background: 'transparent',
                 position: 'relative',
                 padding: { xs: '4rem 0', md: '6rem 0' },
                 transition: 'background 0.4s ease',
