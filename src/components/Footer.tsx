@@ -1,22 +1,11 @@
-import { Box, Container, Typography, Link, IconButton, SvgIcon, useTheme } from "@mui/material";
+import { Box, Container, Link, Typography, useTheme } from "@mui/material";
 import { ACCENT_PRIMARY } from '../theme/theme';
 
-const ArrowUpIcon = (props: any) => (
-  <SvgIcon {...props}>
-    <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z" />
-  </SvgIcon>
-);
 
 export default function Footer() {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
 
   return (
     <Box
@@ -78,6 +67,16 @@ export default function Footer() {
               <Link
                 key={idx}
                 href={link.href}
+                onClick={(e: React.MouseEvent) => {
+                  e.preventDefault();
+                  const targetId = link.href.substring(1);
+                  const targetEl = document.getElementById(targetId);
+                  if (targetEl) {
+                    const rect = targetEl.getBoundingClientRect();
+                    const absoluteTop = rect.top + window.scrollY - 80;
+                    window.scrollTo({ top: absoluteTop, behavior: 'smooth' });
+                  }
+                }}
                 className="cursor-target"
                 sx={{
                   color: theme.palette.text.secondary,
@@ -94,27 +93,6 @@ export default function Footer() {
               </Link>
             ))}
           </Box>
-
-          {/* Back to Top */}
-          <IconButton
-            onClick={scrollToTop}
-            className="cursor-target"
-            aria-label="scroll to top"
-            sx={{
-              background: "rgba(102, 126, 234, 0.1)",
-              border: `1px solid ${ACCENT_PRIMARY}50`,
-              color: ACCENT_PRIMARY,
-              transition: "all 0.3s ease",
-              "&:hover": {
-                background: ACCENT_PRIMARY,
-                color: "#ffffff",
-                transform: "translateY(-4px)",
-                boxShadow: "0 6px 20px rgba(102, 126, 234, 0.4)",
-              }
-            }}
-          >
-            <ArrowUpIcon />
-          </IconButton>
         </Box>
 
         <Box

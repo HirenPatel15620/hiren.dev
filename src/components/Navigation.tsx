@@ -78,7 +78,8 @@ export default function Navigation() {
             sections.forEach(sectionId => {
                 const section = document.getElementById(sectionId);
                 if (section) {
-                    const sectionTop = section.offsetTop;
+                    const rect = section.getBoundingClientRect();
+                    const sectionTop = rect.top + window.scrollY;
                     if (window.scrollY >= sectionTop - 180) {
                         current = sectionId;
                     }
@@ -102,15 +103,17 @@ export default function Navigation() {
         const targetSection = document.getElementById(targetId);
 
         if (targetSection) {
-            const offsetTop = targetSection.offsetTop - 80;
+            const rect = targetSection.getBoundingClientRect();
+            const absoluteTop = rect.top + window.scrollY - 80;
             window.scrollTo({
-                top: offsetTop,
+                top: absoluteTop,
                 behavior: 'smooth'
             });
             setActiveSection(targetId);
             setMobileOpen(false);
         }
     };
+
 
     return (
         <AppBar

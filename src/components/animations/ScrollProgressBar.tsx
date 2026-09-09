@@ -247,6 +247,13 @@ export function ScrollProgressBar() {
                         e.stopPropagation();
                         if (percent === 100) {
                             window.scrollTo({ top: 0, behavior: 'smooth' });
+                            document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+                            // Fallback: ensure we reach absolute top
+                            setTimeout(() => {
+                                if (window.scrollY > 0) {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }
+                            }, 800);
                         }
                     }}
                     style={{
