@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import { useThemeMode } from '../context/ThemeContext';
 import { ACCENT_GRADIENT, ACCENT_PRIMARY } from '../theme/theme';
+import { scrollToSection } from '../utils/scrollTo';
 
 const MenuIcon = (props: any) => (
     <SvgIcon {...props}>
@@ -100,18 +101,9 @@ export default function Navigation() {
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
         const targetId = href.substring(1);
-        const targetSection = document.getElementById(targetId);
-
-        if (targetSection) {
-            const rect = targetSection.getBoundingClientRect();
-            const absoluteTop = rect.top + window.scrollY - 80;
-            window.scrollTo({
-                top: absoluteTop,
-                behavior: 'smooth'
-            });
-            setActiveSection(targetId);
-            setMobileOpen(false);
-        }
+        scrollToSection(targetId);
+        setActiveSection(targetId);
+        setMobileOpen(false);
     };
 
 

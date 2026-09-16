@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material';
 import { motion, useScroll, useSpring, useTransform } from 'motion/react';
+import { scrollToSection } from '../../utils/scrollTo';
 
 /**
  * ScrollProgressBar
@@ -35,11 +36,21 @@ export function ScrollProgressBar() {
     // Shift the pill so at 0% it sits at the top edge, at 100% it sits at the bottom edge
     const numberTranslateY = useTransform(smoothProgress, [0, 1], ['0%', '-100%']);
 
-    // Live integer percentage
+    // Live integer percentage (spring-smoothed, for display)
     const [percent, setPercent] = useState(0);
     useEffect(() => {
         return smoothProgress.on('change', (v) => setPercent(Math.round(v * 100)));
     }, [smoothProgress]);
+
+    // Raw (un-smoothed) percent — used for the TO TOP threshold
+    // so it triggers reliably without spring overshoot issues
+    const [rawPercent, setRawPercent] = useState(0);
+    useEffect(() => {
+        return scrollYProgress.on('change', (v) => setRawPercent(Math.round(v * 100)));
+    }, [scrollYProgress]);
+
+    // Show "TO TOP" when user has scrolled 95%+ of the page
+    const isNearBottom = rawPercent >= 95;
 
     // ── Color tokens ──────────────────────────────────────────────
     const lineTrack = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)';
@@ -243,28 +254,20 @@ export function ScrollProgressBar() {
                     3. BOTTOM: "SCROLL" + arrow
                 ═══════════════════════════════════════ */}
                 <div
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        if (percent === 100) {
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                            document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
-                            // Fallback: ensure we reach absolute top
-                            setTimeout(() => {
-                                if (window.scrollY > 0) {
-                                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                                }
-                            }, 800);
+                    onClick={() => {
+                        if (isNearBottom) {
+                            scrollToSection('home', 0);
                         }
                     }}
                     style={{
                         marginBottom: '24px',
                         display: 'flex',
-                        flexDirection: percent === 100 ? 'column-reverse' : 'column',
+                        flexDirection: isNearBottom ? 'column-reverse' : 'column',
                         alignItems: 'center',
                         gap: '10px',
                         flexShrink: 0,
-                        cursor: percent === 100 ? 'pointer' : 'default',
-                        pointerEvents: percent === 100 ? 'auto' : 'none',
+                        cursor: isNearBottom ? 'pointer' : 'default',
+                        pointerEvents: isNearBottom ? 'auto' : 'none',
                     }}
                 >
                     {/* "SCROLL" — vertical, reads bottom-to-top (matching reference) */}
@@ -282,11 +285,11 @@ export function ScrollProgressBar() {
                             lineHeight: 1,
                         }}
                     >
-                        {percent === 100 ? 'TO TOP' : 'SCROLL'}
+                        {isNearBottom ? 'TO TOP' : 'SCROLL'}
                     </span>
 
                     {/* Animated arrow — explicit upward/downward paths, no rotation */}
-                    {percent === 100 ? (
+                    {isNearBottom ? (
                         <motion.svg
                             key="arrow-up"
                             viewBox="0 0 8 14"

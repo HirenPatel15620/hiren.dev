@@ -40,7 +40,7 @@ export function ParallaxSection({ imageSrc, children, speed = 0.3 }: ParallaxSec
     const bgHeight = '125%';
 
     return (
-        <div ref={ref} style={{ position: 'relative', overflow: 'hidden', isolation: 'isolate' }}>
+        <div ref={ref} style={{ position: 'relative', overflow: 'clip', isolation: 'isolate' }}>
             {/* Parallax Background Layer */}
             <motion.div
                 style={{

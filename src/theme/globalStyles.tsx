@@ -20,7 +20,6 @@ export const GlobalStyles = () => {
                     borderRadius: '4px',
                 },
                 html: {
-                    scrollBehavior: 'smooth',
                     overflowX: 'hidden',
                     backgroundColor: theme.palette.background.default,
                     transition: 'background-color 0.4s ease',
@@ -193,6 +192,7 @@ export const GlobalStyles = () => {
                 },
                     section: {
                         padding: '4rem 0',
+                        scrollMarginTop: '80px',
                         opacity: 0,
                         transform: 'translateY(30px)',
                         transition: 'all 0.8s ease',

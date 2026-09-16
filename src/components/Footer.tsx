@@ -1,5 +1,6 @@
 import { Box, Container, Link, Typography, useTheme } from "@mui/material";
 import { ACCENT_PRIMARY } from '../theme/theme';
+import { scrollToSection } from '../utils/scrollTo';
 
 
 export default function Footer() {
@@ -69,13 +70,7 @@ export default function Footer() {
                 href={link.href}
                 onClick={(e: React.MouseEvent) => {
                   e.preventDefault();
-                  const targetId = link.href.substring(1);
-                  const targetEl = document.getElementById(targetId);
-                  if (targetEl) {
-                    const rect = targetEl.getBoundingClientRect();
-                    const absoluteTop = rect.top + window.scrollY - 80;
-                    window.scrollTo({ top: absoluteTop, behavior: 'smooth' });
-                  }
+                  scrollToSection(link.href.substring(1));
                 }}
                 className="cursor-target"
                 sx={{
