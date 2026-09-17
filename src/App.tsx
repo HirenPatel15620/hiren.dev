@@ -17,6 +17,7 @@ import { ParallaxSection } from './components/animations/ParallaxSection';
 import { ScrollProgressBar } from './components/animations/ScrollProgressBar';
 import Preloader from './components/loading/Preloader';
 import MotionPathBackground from './components/MotionPathBackground';
+import Signature from './components/animations/Signature';
 
 function AppContent() {
   const { mode, isTransitioning, completeTransition } = useThemeMode();
@@ -55,7 +56,7 @@ function AppContent() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles />
-      
+
       {showPreloader && (
         <Preloader onComplete={handlePreloaderComplete} themeMode={mode} />
       )}
@@ -75,6 +76,7 @@ function AppContent() {
 
       {!loading && <MotionPathBackground />}
       {!loading && <ScrollProgressBar />}
+      {!loading && <Signature text="Hiren Patel" />}
 
       <main style={{ visibility: loading ? 'hidden' : 'visible', position: 'relative', zIndex: 1 }}>
         <Hero />
