@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { getTheme } from './theme/theme';
 import { GlobalStyles } from './theme/globalStyles';
@@ -18,6 +19,7 @@ import { ScrollProgressBar } from './components/animations/ScrollProgressBar';
 import Preloader from './components/loading/Preloader';
 import MotionPathBackground from './components/MotionPathBackground';
 import Signature from './components/animations/Signature';
+import ErrorPage from './components/error/ErrorPage';
 
 function AppContent() {
   const { mode, isTransitioning, completeTransition } = useThemeMode();
@@ -57,49 +59,66 @@ function AppContent() {
       <CssBaseline />
       <GlobalStyles />
 
-      {showPreloader && (
-        <Preloader onComplete={handlePreloaderComplete} themeMode={mode} />
-      )}
+      <Routes>
+        <Route path="/" element={
+          <>
+            {showPreloader && (
+              <Preloader onComplete={handlePreloaderComplete} themeMode={mode} />
+            )}
 
-      {/* Theme Transition Loader Overlay */}
-      {isTransitioning && (
-        <Preloader onComplete={completeTransition} themeMode={mode} isThemeTransition={true} />
-      )}
+            {/* Theme Transition Loader Overlay */}
+            {isTransitioning && (
+              <Preloader onComplete={completeTransition} themeMode={mode} isThemeTransition={true} />
+            )}
 
-      <TargetCursor
-        spinDuration={2}
-        hideDefaultCursor={true}
-        parallaxOn={true}
-      />
+            <TargetCursor
+              spinDuration={2}
+              hideDefaultCursor={true}
+              parallaxOn={true}
+            />
 
-      <Navigation />
+            <Navigation />
 
-      {!loading && <MotionPathBackground />}
-      {!loading && <ScrollProgressBar />}
-      {!loading && <Signature text="Hiren Patel" />}
+            {!loading && <MotionPathBackground />}
+            {!loading && <ScrollProgressBar />}
+            {!loading && <Signature text="Hiren Patel" />}
 
-      <main style={{ visibility: loading ? 'hidden' : 'visible', position: 'relative', zIndex: 1 }}>
-        <Hero />
+            <main style={{ visibility: loading ? 'hidden' : 'visible', position: 'relative', zIndex: 1 }}>
+              <Hero />
 
-        <ParallaxSection imageSrc="/images/parallax/combined-bg.png" speed={0.2}>
-          <About />
-          <Skills />
-          <Experience />
-          <Projects />
-          <Contact />
-        </ParallaxSection>
-      </main>
+              <ParallaxSection imageSrc="/images/parallax/combined-bg.png" speed={0.2}>
+                <About />
+                <Skills />
+                <Experience />
+                <Projects />
+                <Contact />
+              </ParallaxSection>
+            </main>
 
-      <Footer />
+            <Footer />
+          </>
+        } />
+        
+        {/* Error Pages Routes */}
+        <Route path="/404" element={<ErrorPage code="404" title="Page Not Found" description="The page you are looking for might have been removed, had its name changed, or is temporarily unavailable." />} />
+        <Route path="/401" element={<ErrorPage code="401" title="Unauthorized" description="Access is denied due to invalid credentials. Please log in and try again." />} />
+        <Route path="/403" element={<ErrorPage code="403" title="Forbidden" description="You don't have permission to access this resource. Please contact your administrator." />} />
+        <Route path="/500" element={<ErrorPage code="500" title="Internal Server Error" description="The server encountered an unexpected condition that prevented it from fulfilling the request. We are working on fixing it." />} />
+        
+        {/* Catch-all route mapping to 404 */}
+        <Route path="*" element={<Navigate to="/404" replace />} />
+      </Routes>
     </ThemeProvider>
   );
 }
 
 function App() {
   return (
-    <ThemeContextProvider>
-      <AppContent />
-    </ThemeContextProvider>
+    <Router>
+      <ThemeContextProvider>
+        <AppContent />
+      </ThemeContextProvider>
+    </Router>
   );
 }
 
