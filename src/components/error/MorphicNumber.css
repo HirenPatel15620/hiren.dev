@@ -1,0 +1,43 @@
+.morphic-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+}
+
+.morphic-svg {
+  width: 100%;
+  max-width: 600px;
+  overflow: visible;
+}
+
+.morphic-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 240px;
+  font-weight: 800;
+  fill: transparent;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.morphic-bg {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+.morphic-stroke {
+  stroke: #fff;
+  stroke-dasharray: 200 800;
+  stroke-dashoffset: 0;
+  animation: strokeAnim 6s linear infinite;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes strokeAnim {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}

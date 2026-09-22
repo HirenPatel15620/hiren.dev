@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import { useThemeMode } from '../context/ThemeContext';
 import { ACCENT_GRADIENT, ACCENT_PRIMARY } from '../theme/theme';
+import { scrollToSection } from '../utils/scrollTo';
 
 const MenuIcon = (props: any) => (
     <SvgIcon {...props}>
@@ -52,7 +53,6 @@ const navItems = [
     { label: 'Skills', href: '#skills' },
     { label: 'Experience', href: '#experience' },
     { label: 'Projects', href: '#projects' },
-    { label: 'Portfolio', href: '#portfolio' },
     { label: 'Contact', href: '#contact' },
 ];
 
@@ -79,7 +79,8 @@ export default function Navigation() {
             sections.forEach(sectionId => {
                 const section = document.getElementById(sectionId);
                 if (section) {
-                    const sectionTop = section.offsetTop;
+                    const rect = section.getBoundingClientRect();
+                    const sectionTop = rect.top + window.scrollY;
                     if (window.scrollY >= sectionTop - 180) {
                         current = sectionId;
                     }
@@ -100,18 +101,11 @@ export default function Navigation() {
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
         const targetId = href.substring(1);
-        const targetSection = document.getElementById(targetId);
-
-        if (targetSection) {
-            const offsetTop = targetSection.offsetTop - 80;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-            setActiveSection(targetId);
-            setMobileOpen(false);
-        }
+        scrollToSection(targetId);
+        setActiveSection(targetId);
+        setMobileOpen(false);
     };
+
 
     return (
         <AppBar
