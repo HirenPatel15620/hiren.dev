@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+// @ts-ignore
 import * as opentype from 'opentype.js';
 import { Box, useTheme } from '@mui/material';
 
@@ -27,7 +28,7 @@ const Signature: React.FC<SignatureProps> = ({
     let mounted = true;
 
     // We assume the font is in the public directory
-    opentype.load('/LastoriaBoldRegular.otf', (err, font) => {
+    opentype.load('/LastoriaBoldRegular.otf', (err: any, font: any) => {
       if (err || !font) {
         console.error('Could not load font:', err);
         return;
