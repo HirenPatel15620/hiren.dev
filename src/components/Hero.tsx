@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from 'react';
 import TextType from './animations/TextType';
 import TextReveal from './animations/TextReveal';
 import SpotlightButton from './animations/SpotlightButton';
-import ConfettiBackground from './animations/ConfettiBackground';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -12,7 +11,6 @@ gsap.registerPlugin(ScrollTrigger);
 import { ACCENT_GRADIENT, ACCENT_PRIMARY } from '../theme/theme';
 
 export default function Hero() {
-    const [backgroundY, setBackgroundY] = useState(0);
     const [imgError, setImgError] = useState(false);
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
@@ -21,11 +19,6 @@ export default function Hero() {
     const imageRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setBackgroundY(window.scrollY * 0.5);
-        };
-        window.addEventListener('scroll', handleScroll);
-        
         // Disintegration/Dissolve effect on scroll for Hero image
         if (imageRef.current && imageContainerRef.current) {
             gsap.to(imageRef.current, {
@@ -45,7 +38,6 @@ export default function Hero() {
         }
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
             ScrollTrigger.getAll().forEach(t => t.kill());
         };
     }, []);
@@ -68,21 +60,6 @@ export default function Hero() {
             }}
         >
 
-            <Box
-                className="hero-background"
-                sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'transparent',
-                    zIndex: 1,
-                    transform: `translateY(${backgroundY}px)`,
-                }}
-            >
-                <ConfettiBackground />
-            </Box>
 
             <Box
                 className="hero-content-wrapper"
